@@ -5,15 +5,16 @@ import java.util.List;
 
 public class CrossoverHistoricalElement implements HistoricalElement {
 
-  private final Variant parentA;
-  private final Variant parentB;
-  private final int crossoverPoint;
+  private final Variant parentA = null;
+  private final Variant parentB = null;
+  private final int crossoverPoint = 0;
 
   public CrossoverHistoricalElement(final Variant parentA, final Variant parentB,
       final int crossoverPoint) {
-    this.parentA = parentA;
-    this.parentB = parentB;
-    this.crossoverPoint = crossoverPoint;
+    // EXP-FOR-FSE
+    // this.parentA = parentA;
+    // this.parentB = parentB;
+    // this.crossoverPoint = crossoverPoint;
   }
 
   @Override

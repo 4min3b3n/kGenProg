@@ -38,7 +38,7 @@ public class VariantStore {
     initialVariant = createInitialVariant();
     currentVariants = Collections.singletonList(initialVariant);
     allVariants = new LinkedList<>();
-    allVariants.add(initialVariant);
+    // allVariants.add(initialVariant); // EXP-FOR-FSE
     generatedVariants = new ArrayList<>();
     foundSolutions = new ArrayList<>();
     generation.incrementAndGet();
@@ -55,7 +55,7 @@ public class VariantStore {
 
     currentVariants = Collections.singletonList(initialVariant);
     allVariants = new ArrayList<>();
-    allVariants.add(initialVariant);
+    // allVariants.add(initialVariant); // EXP-FOR-FSE
     generatedVariants = new ArrayList<>();
     foundSolutions = new ArrayList<>();
     generation = new OrdinalNumber(1);
@@ -127,7 +127,7 @@ public class VariantStore {
    */
   public void addGeneratedVariant(final Variant variant) {
 
-    allVariants.add(variant);
+    // allVariants.add(variant); // EXP-FOR-FSE
     if (variant.isCompleted()) {
       foundSolutions.add(variant);
     } else {

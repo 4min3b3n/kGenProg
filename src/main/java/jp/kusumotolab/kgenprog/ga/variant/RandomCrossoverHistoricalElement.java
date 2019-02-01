@@ -5,12 +5,13 @@ import java.util.List;
 
 public class RandomCrossoverHistoricalElement implements HistoricalElement {
 
-  private final Variant parentA;
-  private final Variant parentB;
+  private final Variant parentA = null;
+  private final Variant parentB = null;
 
   public RandomCrossoverHistoricalElement(final Variant parentA, final Variant parentB) {
-    this.parentA = parentA;
-    this.parentB = parentB;
+    // EXP-FOR-FSE
+    // this.parentA = parentA;
+    // this.parentB = parentB;
   }
 
   @Override
