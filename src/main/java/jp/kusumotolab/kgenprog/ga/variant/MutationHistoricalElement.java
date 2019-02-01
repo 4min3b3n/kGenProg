@@ -5,12 +5,13 @@ import java.util.List;
 
 public class MutationHistoricalElement implements HistoricalElement {
 
-  private final Variant parent;
-  private final Base appendedBase;
+  private final Variant parent = null;
+  private final Base appendedBase = null;
 
   public MutationHistoricalElement(final Variant parent, final Base appendedBase) {
-    this.parent = parent;
-    this.appendedBase = appendedBase;
+    // EXP-FOR-FSE
+//    this.parent = parent;
+//    this.appendedBase = appendedBase;
   }
 
   @Override
