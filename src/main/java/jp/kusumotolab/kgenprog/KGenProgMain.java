@@ -116,8 +116,9 @@ public class KGenProgMain {
     // 生成されたバリアントのパッチ出力
     logPatch(variantStore);
 
+    // EXP-FOR-FSE
     // jsonの出力
-    writeJson(variantStore);
+    // writeJson(variantStore);
 
     stopwatch.unsplit();
     strategies.finish();
