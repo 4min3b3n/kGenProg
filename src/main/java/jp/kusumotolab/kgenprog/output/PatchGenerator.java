@@ -6,7 +6,17 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.ToolFactory;
+import org.eclipse.jdt.core.formatter.CodeFormatter;
+import org.eclipse.jdt.core.formatter.DefaultCodeFormatterConstants;
+import org.eclipse.jdt.internal.formatter.DefaultCodeFormatterOptions;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.text.edits.MalformedTreeException;
+import org.eclipse.text.edits.TextEdit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.github.difflib.DiffUtils;
@@ -55,16 +65,21 @@ public class PatchGenerator {
     final Path originPath = ast.getSourcePath()
         .getResolvedPath();
 
-    final String modifiedSourceCodeText = ast.getSourceCode();
+    final String modifiedSourceCodeText = format(ast.getSourceCode());
     final Document document = new Document(modifiedSourceCodeText);
 
     final String fileName = ast.getPrimaryClassName().value;
     final String delimiter = document.getDefaultLineDelimiter();
     final List<String> modifiedSourceCodeLines =
         Arrays.asList(modifiedSourceCodeText.split(delimiter));
-    final List<String> originalSourceCodeLines = Files.readAllLines(originPath);
+
+    final String xx = String.join(document.getDefaultLineDelimiter(), Files.readAllLines(originPath));
+    final String x = format(xx);
+    final List<String> originalSourceCodeLines = Arrays.asList(x.split(delimiter));
     final List<String> noBlankLineOriginalSourceCodeLines =
         removeEndDelimiter(originalSourceCodeLines);
+
+
     final List<String> diffLines =
         makeDiff(fileName, noBlankLineOriginalSourceCodeLines, modifiedSourceCodeLines);
 
@@ -96,5 +111,47 @@ public class PatchGenerator {
     }
 
     return Collections.emptyList();
+  }
+
+
+  private static String format(String source) {
+    Map<String, String> options = DefaultCodeFormatterOptions.getEclipseDefaultSettings()
+        .getMap();
+    // initialize the compiler settings to be able to format 1.8 code
+    options.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8);
+    options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
+    options.put(JavaCore.COMPILER_SOURCE, JavaCore.VERSION_1_8);
+    options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_CHAR, JavaCore.SPACE);
+    options.put(DefaultCodeFormatterConstants.FORMATTER_TAB_SIZE, "2");
+
+    // instantiate the default code formatter with the given options
+    final CodeFormatter codeFormatter = ToolFactory.createCodeFormatter(options);
+
+    // retrieve the source to format
+    String separator = System.getProperty("line.separator");
+    final TextEdit edit;
+    try {
+      edit = codeFormatter.format(CodeFormatter.K_COMPILATION_UNIT, // format a compilation unit
+          source, // source to format
+          0, // starting position
+          source.length(), // length
+          0, // initial indentation
+          separator // line separator
+      );
+    } catch (RuntimeException e) {
+      log.error("--------");
+      log.error("formatting error", e);
+      log.error(source);
+      throw e;
+    }
+
+    IDocument document = new Document(source);
+    try {
+      edit.apply(document);
+    } catch (MalformedTreeException | BadLocationException e) {
+      e.printStackTrace();
+    }
+
+    return document.get();
   }
 }

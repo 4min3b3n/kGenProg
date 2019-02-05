@@ -70,6 +70,19 @@ public class KGenProgMainTest {
   }
 
   @Test
+  public void testCloseToZero0xx() {
+    final Path rootPath = Paths.get("D:/work/conf-saner-2019/CloseToZero01/");
+    final Path productPath = rootPath.resolve(PRODUCT_NAME);
+    final Path testPath = rootPath.resolve(TEST_NAME);
+
+    final KGenProgMain kGenProgMain = createMain(rootPath, productPath, testPath);
+    final List<Variant> variants = kGenProgMain.run();
+
+    assertThat(variants).hasSize(1)
+        .allMatch(Variant::isCompleted);
+  }
+
+  @Test
   public void testCloseToZero01() {
     final Path rootPath = Paths.get("example/CloseToZero01");
     final Path productPath = rootPath.resolve(PRODUCT_NAME);

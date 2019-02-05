@@ -60,6 +60,9 @@ public class ProjectBuilder {
       final boolean successs = build(allAsts, javaSourceObjects, diagnostics, progress);
 
       if (!successs) {
+        // System.out.println(targetProject.getClassPaths());
+        // diagnostics.getDiagnostics()
+        // .forEach(System.out::println);
         return EmptyBuildResults.instance;
       }
     }
