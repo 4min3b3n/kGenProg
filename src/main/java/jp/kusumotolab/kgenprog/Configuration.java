@@ -214,9 +214,9 @@ public class Configuration {
     private Path configPath = Paths.get("kgenprog.toml");
 
     @com.electronwill.nightconfig.core.conversion.Path("root-dir")
-    @SpecNotNull
+    @PreserveNotNull
     @Conversion(PathToString.class)
-    private Path rootDir;
+    private Path rootDir = Paths.get("./");
 
     @com.electronwill.nightconfig.core.conversion.Path("src")
     @SpecNotNull
@@ -388,7 +388,7 @@ public class Configuration {
 
       return new Configuration(this);
     }
-
+    
     public Builder addClassPaths(final Collection<Path> classPaths) {
       this.classPaths.addAll(classPaths);
       return this;
