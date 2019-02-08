@@ -21,6 +21,8 @@ import jp.kusumotolab.kgenprog.output.PatchStore;
 import jp.kusumotolab.kgenprog.output.VariantStoreExporter;
 import jp.kusumotolab.kgenprog.project.jdt.JDTASTConstruction;
 import jp.kusumotolab.kgenprog.project.test.TestExecutor;
+import me.tongfei.progressbar.ProgressBar;
+import me.tongfei.progressbar.ProgressBarBuilder;
 
 public class KGenProgMain {
 
@@ -55,6 +57,8 @@ public class KGenProgMain {
     this.patchGenerator = patchGenerator;
   }
 
+  public static ProgressBar progressBar;
+
   public List<Variant> run() {
 
     logConfig();
@@ -74,43 +78,47 @@ public class KGenProgMain {
     stopwatch.start();
 
     while (true) {
+      try (ProgressBar pb = new ProgressBar(variantStore.getGenerationNumber().toString() + ": ", config.getMutationGeneratingCount() + config.getCrossoverGeneratingCount(), 10)) {
+        progressBar = pb;
 
-      // 新しい世代に入ったことをログ出力
-      logGeneration(variantStore.getGenerationNumber());
+        // 新しい世代に入ったことをログ出力
+        logGeneration(variantStore.getGenerationNumber());
 
-      // 変異プログラムを生成
-      final List<Variant> variantsByMutation = mutation.exec(variantStore);
-      final List<Variant> variantsByCrossover = crossover.exec(variantStore);
-      variantStore.addGeneratedVariants(variantsByMutation);
-      variantStore.addGeneratedVariants(variantsByCrossover);
+        // 変異プログラムを生成
+        final List<Variant> variantsByMutation = mutation.exec(variantStore);
+        final List<Variant> variantsByCrossover = crossover.exec(variantStore);
+        variantStore.addGeneratedVariants(variantsByMutation);
+        variantStore.addGeneratedVariants(variantsByCrossover);
 
-      // 世代別サマリの出力
-      logGenerationSummary(stopwatch.toString(), variantsByMutation, variantsByCrossover);
-      stopwatch.split();
+        pb.close();
+        // 世代別サマリの出力
+        logGenerationSummary(stopwatch.toString(), variantsByMutation, variantsByCrossover);
+        stopwatch.split();
 
-      // しきい値以上の completedVariants が生成された場合は，GA を抜ける
-      if (areEnoughCompletedVariants(variantStore.getFoundSolutions())) {
-        log.info("enough solutions have been found.");
-        logGAStopped(variantStore.getGenerationNumber());
-        break;
+        // しきい値以上の completedVariants が生成された場合は，GA を抜ける
+        if (areEnoughCompletedVariants(variantStore.getFoundSolutions())) {
+          log.info("enough solutions have been found.");
+          logGAStopped(variantStore.getGenerationNumber());
+          break;
+        }
+
+        // 制限時間に達した場合には GA を抜ける
+        if (stopwatch.isTimeout()) {
+          log.info("GA reached the time limit.");
+          logGAStopped(variantStore.getGenerationNumber());
+          break;
+        }
+
+        // 最大世代数に到達した場合には GA を抜ける
+        if (reachedMaxGeneration(variantStore.getGenerationNumber())) {
+          log.info("GA reached the maximum generation.");
+          logGAStopped(variantStore.getGenerationNumber());
+          break;
+        }
+
+        // 次世代に向けての準備
+        variantStore.proceedNextGeneration();
       }
-
-      // 制限時間に達した場合には GA を抜ける
-      if (stopwatch.isTimeout()) {
-        log.info("GA reached the time limit.");
-        logGAStopped(variantStore.getGenerationNumber());
-        break;
-      }
-
-      // 最大世代数に到達した場合には GA を抜ける
-      if (reachedMaxGeneration(variantStore.getGenerationNumber())) {
-        log.info("GA reached the maximum generation.");
-        logGAStopped(variantStore.getGenerationNumber());
-        break;
-      }
-
-      // 次世代に向けての準備
-      variantStore.proceedNextGeneration();
     }
 
     // 生成されたバリアントのパッチ出力
