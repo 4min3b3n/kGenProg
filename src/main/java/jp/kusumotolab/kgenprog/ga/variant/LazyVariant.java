@@ -30,8 +30,7 @@ public class LazyVariant extends Variant {
       return;
     }
     testResultsSingle.observeOn(Schedulers.io()).subscribe(e -> {
-      if (KGenProgMain.progressBar == null) return;
-      KGenProgMain.progressBar.step();
+      System.out.print("X");
     });
   }
 
