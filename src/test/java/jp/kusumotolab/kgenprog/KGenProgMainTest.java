@@ -47,6 +47,7 @@ public class KGenProgMainTest {
             .setMaxGeneration(100)
             .setRequiredSolutionsCount(1)
             .setNeedNotOutput(true)
+            .setMutationGeneratingCount(5000)
             .setRandomSeed(2) // CTZ04の修正に時間がかかるので早めに終わるよう微調整（for テスト高速化）
             .build();
 
