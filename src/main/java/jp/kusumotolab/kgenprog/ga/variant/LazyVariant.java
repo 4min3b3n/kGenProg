@@ -1,7 +1,12 @@
 package jp.kusumotolab.kgenprog.ga.variant;
 
 import java.util.List;
+import java.util.function.IntFunction;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
+import jp.kusumotolab.kgenprog.KGenProgMain;
 import jp.kusumotolab.kgenprog.fl.Suspiciousness;
 import jp.kusumotolab.kgenprog.ga.validation.Fitness;
 import jp.kusumotolab.kgenprog.project.GeneratedSourceCode;
@@ -24,7 +29,10 @@ public class LazyVariant extends Variant {
     if (testResultsSingle == null) {
       return;
     }
-    testResultsSingle.subscribe();
+    testResultsSingle.observeOn(Schedulers.io()).subscribe(e -> {
+      if (KGenProgMain.progressBar == null) return;
+      KGenProgMain.progressBar.step();
+    });
   }
 
   void setTestResultsSingle(
