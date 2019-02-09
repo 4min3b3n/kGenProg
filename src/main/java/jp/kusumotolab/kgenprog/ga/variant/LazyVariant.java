@@ -30,7 +30,7 @@ public class LazyVariant extends Variant {
       return;
     }
     testResultsSingle.observeOn(Schedulers.io()).subscribe(e -> {
-      System.out.print("X");
+      System.out.print("x");
     });
   }
 
