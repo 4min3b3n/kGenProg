@@ -123,6 +123,16 @@ resourceファイルへのアクセスを試す題材．
 2実装クラスと1テストクラス．  
 クラスローダ経由でのバイナリresourceのアクセスを試す題材．  
 
+### BuildSuccess23
+
+### BuildSuccess24
+1実装クラス．
+InsertBlockOperationのために、ifのblockが省略されているソースコードを含む題材
+
+### BuildSuccess25
+3実装クラス．
+InsertBlockOperationのために、ifのblockが省略されているソースコードを含む題材
+
 # CloseToZero
 APR用の題材．  
 整数をゼロに一つ近づけるメソッド`close_to_zero(n)`の修正を試みる．  
