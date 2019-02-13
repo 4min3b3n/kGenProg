@@ -49,8 +49,8 @@ public class Configuration {
   public static final Duration DEFAULT_TIME_LIMIT = Duration.ofSeconds(60);
   public static final Duration DEFAULT_TEST_TIME_LIMIT = Duration.ofSeconds(10);
   public static final Level DEFAULT_LOG_LEVEL = Level.INFO;
-  public static final Path DEFAULT_OUT_DIR = Paths.get("kgenprog-out");
-  public static final long DEFAULT_RANDOM_SEED = 1;
+  public static final Path DEFAULT_OUT_DIR = Paths.get("../kgp-out");
+  public static final long DEFAULT_RANDOM_SEED = 33;
   public static final Scope.Type DEFAULT_SCOPE = Scope.Type.PACKAGE;
   public static final boolean DEFAULT_NEED_NOT_OUTPUT = false;
   public static final FaultLocalization.Technique DEFAULT_FAULT_LOCALIZATION = FaultLocalization.Technique.Ochiai;
