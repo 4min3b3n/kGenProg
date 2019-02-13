@@ -208,7 +208,7 @@ public class KGenProgMain {
         .append(", min ")
         .append(getMinText(variants))
         .append(", ave ")
-        .append(getAverage(variants))
+        .append(String.format("%.2f", getAverage(variants)))
         .append(System.lineSeparator())
         .append("----------------------------------------------------------------")
         .append(System.lineSeparator());
@@ -228,7 +228,7 @@ public class KGenProgMain {
     }
     final Map.Entry<Double, Long> max =
         Collections.max(frequencies.entrySet(), Map.Entry.comparingByKey());
-    return max.getKey() + "(" + max.getValue() + ")";
+    return String.format("%.2f", max.getKey()) + "(" + max.getValue() + ")";
   }
 
   private String getMinText(final List<Variant> variants) {
@@ -238,7 +238,7 @@ public class KGenProgMain {
     }
     final Map.Entry<Double, Long> min =
         Collections.min(frequencies.entrySet(), Map.Entry.comparingByKey());
-    return min.getKey() + "(" + min.getValue() + ")";
+    return String.format("%.2f", min.getKey()) + "(" + min.getValue() + ")";
   }
 
   private double getAverage(final List<Variant> variants) {
