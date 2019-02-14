@@ -60,7 +60,7 @@ public class Configuration {
       FirstVariantSelectionStrategy.Strategy.Random;
   public static final SecondVariantSelectionStrategy.Strategy DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY =
       SecondVariantSelectionStrategy.Strategy.Random;
-  public static final boolean DEFAULT_NORMALIZE_SOURCE_CODE = false;
+  public static final boolean DEFAULT_NORMALIZE_SOURCE_CODE = true;
 
   private final TargetProject targetProject;
   private final List<String> executionTests;
