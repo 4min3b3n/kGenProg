@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
+import jp.kusumotolab.kgenprog.project.test.EmptyTestResults;
 import jp.kusumotolab.kgenprog.project.test.TestResults;
 
-public class SecondVariantTestComplementaryBasedSelection implements SecondVariantSelectionStrategy {
+public class SecondVariantTestComplementaryBasedSelection
+    implements SecondVariantSelectionStrategy {
 
   // 処理手順は以下の通り．
   // 1. 第一バリアントを取り除いたバリアントのリスト（secondVariantCandidates）を作成
@@ -48,6 +50,9 @@ public class SecondVariantTestComplementaryBasedSelection implements SecondVaria
 
   private Long getSuccessedNumber(final TestResults testResults,
       final Collection<FullyQualifiedName> targetFQNs) {
+    if (EmptyTestResults.class == testResults.getClass()) {
+      return 0l;
+    }
     return targetFQNs.stream()
         .filter(fqn -> !testResults.getTestResult(fqn).failed)
         .count();
