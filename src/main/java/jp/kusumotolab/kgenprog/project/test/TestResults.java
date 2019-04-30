@@ -17,6 +17,8 @@ import jp.kusumotolab.kgenprog.project.build.JavaBinaryObject;
 public class TestResults {
 
   private final Map<FullyQualifiedName, TestResult> value;
+  // EXP-FOR-FSE
+  public double buildTime = 0.0;
 
   public TestResults() {
     this.value = new HashMap<>();
