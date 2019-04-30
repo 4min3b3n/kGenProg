@@ -5,9 +5,9 @@ import jp.kusumotolab.kgenprog.project.ProductSourcePath;
 
 public class EmptyTestResults extends TestResults {
 
-  public static final EmptyTestResults instance = new EmptyTestResults();
+//  public static final EmptyTestResults instance = new EmptyTestResults();
 
-  private EmptyTestResults() {}
+//  private EmptyTestResults() {}
 
   @Override
   public double getSuccessRate() {

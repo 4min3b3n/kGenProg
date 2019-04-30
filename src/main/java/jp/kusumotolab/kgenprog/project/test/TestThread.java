@@ -85,7 +85,7 @@ class TestThread extends Thread {
 
     // ビルド失敗時は即座に諦める
     if (buildResults.isBuildFailed) {
-      testResults = EmptyTestResults.instance;
+      testResults = new EmptyTestResults();
       return;
     }
 
@@ -117,7 +117,7 @@ class TestThread extends Thread {
 
     } catch (final ClassNotFoundException e) {
       // クラスロードに失敗．FQNの指定ミスの可能性が大
-      this.testResults = EmptyTestResults.instance;
+      this.testResults = new EmptyTestResults();
       return;
     } catch (Exception e) {
       // TODO

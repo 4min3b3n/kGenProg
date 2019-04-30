@@ -170,7 +170,7 @@ public class VariantStore {
     final Single<TestResults> resultsSingle = sourceCode.isGenerationSuccess()
         ? strategies.execAsyncTestExecutor(variantSingle)
         .cache()
-        : Single.just(EmptyTestResults.instance);
+        : Single.just(new EmptyTestResults());
     variant.setTestResultsSingle(resultsSingle);
 
     final Single<Fitness> fitnessSingle = Single
