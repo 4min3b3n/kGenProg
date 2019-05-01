@@ -21,6 +21,14 @@ public class FileDiff {
   private final List<String> originalSourceCodeLines;
   private final List<String> modifiedSourceCodeLines;
 
+  /**
+   * コンストラクタ
+   *
+   * @param diff Unified形式の差分
+   * @param fileName ファイル名
+   * @param originalSourceCodeLines 変更前のソースコード
+   * @param modifiedSourceCodeLines 変更後のソースコード
+   * */
   public FileDiff(final List<String> diff, final String fileName,
       final List<String> originalSourceCodeLines, final List<String> modifiedSourceCodeLines) {
     this.diff = diff;
@@ -41,6 +49,15 @@ public class FileDiff {
     return String.join(System.lineSeparator(), diff);
   }
 
+  /**
+   * 差分と変更後のソースコードを出力する</br>
+   * <ul>
+   *  <li>差分 : &lt;ファイル名&rt;.diff</li>
+   *  <li>変更後のソースコード : &lt;ファイル名&rt;.java</li>
+   * </ul>
+   *
+   * @param outDir 出力先のディレクトリ
+   * */
   public void write(final Path outDir) {
     try {
       Files.write(outDir.resolve(fileName + ".java"), modifiedSourceCodeLines);

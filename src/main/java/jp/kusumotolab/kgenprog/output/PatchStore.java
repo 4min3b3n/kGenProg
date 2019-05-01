@@ -15,10 +15,20 @@ public class PatchStore {
 
   private final List<Patch> patchList = new ArrayList<>();
 
+  /**
+   * バリアントの変更内容を追加する
+   *
+   * @param patch 追加したいバリアントの変更内容
+   */
   public void add(final Patch patch) {
     patchList.add(patch);
   }
 
+  /**
+   * 保持している全てのバリアントの変更内容をファイルに出力する
+   *
+   * @param outDir 出力先のディレクトリ
+   */
   public void writeToFile(final Path outDir) {
     final String timeStamp = getTimeStamp();
     final Path outDirInthisExecution = outDir.resolve(timeStamp);
@@ -30,6 +40,9 @@ public class PatchStore {
     }
   }
 
+  /**
+   * 保持している全てのバリアントの変更内容をログに出力する
+   */
   public void writeToLogger() {
     for (final Patch patch : patchList) {
       patch.writeToLogger();

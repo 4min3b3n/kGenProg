@@ -17,10 +17,17 @@ import jp.kusumotolab.kgenprog.project.GeneratedAST;
 import jp.kusumotolab.kgenprog.project.GeneratedSourceCode;
 import jp.kusumotolab.kgenprog.project.ProductSourcePath;
 
+/**
+ * Patchを生成するクラス
+ * */
 public class PatchGenerator {
 
   private static final Logger log = LoggerFactory.getLogger(PatchGenerator.class);
 
+  /**
+   * Patchを生成する
+   * @param modifiedVariant Patchを生成したいバリアント
+   * */
   public Patch exec(final Variant modifiedVariant) {
 
     final Patch patch = new Patch();
