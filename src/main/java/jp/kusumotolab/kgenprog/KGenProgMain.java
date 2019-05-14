@@ -1,12 +1,5 @@
 package jp.kusumotolab.kgenprog;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -66,18 +59,6 @@ public class KGenProgMain {
 
     logConfig();
 
-    // EXP-FOR-FSE
-    final String fileName = "build_time.log";
-    try {
-      final Path path = Paths.get(fileName);
-      if (Files.exists(path)) {
-        Files.delete(path);
-      }
-      Files.createFile(path);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-
     testExecutor.initialize();
 
     final Strategies strategies = new Strategies(faultLocalization, astConstruction,
@@ -106,27 +87,6 @@ public class KGenProgMain {
       // 世代別サマリの出力
       logGenerationSummary(stopwatch.toString(), variantsByMutation, variantsByCrossover);
       stopwatch.split();
-
-      // EXP-FOR-FSE
-      try {
-        final FileWriter file = new FileWriter(fileName, true);
-        final PrintWriter pw = new PrintWriter(new BufferedWriter(file));
-        final OrdinalNumber generationNumber = variantStore.getGenerationNumber();
-        final List<Variant> list = new ArrayList<>(variantsByMutation);
-        list.addAll(variantsByCrossover);
-        list.stream()
-            .map(e -> {
-              final String isBS = e.isBuildSucceeded() ? "O" : "X";
-              return String.join("\t", String.valueOf(e.getId()),
-                  String.valueOf(generationNumber.get()),
-                  String.valueOf(e.getTestResults().buildTime), isBS);
-            })
-            .forEach(pw::println);
-
-        pw.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
 
       // しきい値以上の completedVariants が生成された場合は，GA を抜ける
       if (areEnoughCompletedVariants(variantStore.getFoundSolutions())) {
