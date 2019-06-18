@@ -247,8 +247,6 @@ class TestThread extends Thread {
   /**
    * JUnit実行のイベントリスナー．内部クラス． JUnit実行前のJaCoCoの初期化，およびJUnit実行後のJaCoCoの結果回収を行う．
    *
-   * メモ：JUnitには「テスト成功時」のイベントリスナーがないので，テスト成否をDescriptionに強引に追記して管理
-   *
    * @author shinsuke
    */
   class CoverageMeasurementListener extends RunListener {
