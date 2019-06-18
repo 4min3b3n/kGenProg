@@ -2,8 +2,6 @@ package jp.kusumotolab.kgenprog.fl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
 import jp.kusumotolab.kgenprog.project.ASTLocations;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
@@ -34,11 +32,7 @@ public class Ochiai implements FaultLocalization {
 
     final List<Suspiciousness> suspiciousnesses = new ArrayList<>();
 
-    final Set<FullyQualifiedName> targetFQNs = testResults.getFailedTestResults()
-        .stream()
-        .flatMap(tr -> tr.getExecutedTargetFQNs()
-            .stream())
-        .collect(Collectors.toSet());
+    final List<FullyQualifiedName> targetFQNs = testResults.getTargetFQNsExecutedByFailedTests();
 
     for (final GeneratedAST<ProductSourcePath> ast : generatedSourceCode.getProductAsts()) {
 

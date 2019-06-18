@@ -114,6 +114,18 @@ public class TestResults {
   }
 
   /**
+   * 失敗テストによって実行されたクラスのFQN一覧を取得．
+   *
+   * @return 失敗テストによって実行されたクラスのFQN一覧
+   */
+  public List<FullyQualifiedName> getTargetFQNsExecutedByFailedTests() {
+    return getFailedTestResults().stream()
+        .map(TestResult::getExecutedTargetFQNs)
+        .flatMap(Collection::stream)
+        .collect(Collectors.toList());
+  }
+
+  /**
    * 実行された単一テストメソッドの結果を返す．
    * 
    * @param testFQN 対象のテストメソッドFQN
