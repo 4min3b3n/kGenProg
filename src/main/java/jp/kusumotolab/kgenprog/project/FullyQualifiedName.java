@@ -6,7 +6,7 @@ public abstract class FullyQualifiedName {
 
   protected FullyQualifiedName(final String value) {
     // TODO check validation
-    this.value = value;
+    this.value = value.replace("/", ".");
   }
 
   public String getPackageName() {

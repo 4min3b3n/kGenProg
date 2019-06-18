@@ -28,8 +28,7 @@ public class RawCoverage implements Coverage {
    * @param classCoverage Jacocoが出力したCoverageの情報
    */
   public RawCoverage(final IClassCoverage classCoverage) {
-    this.executedTargetFQN = new TargetFullyQualifiedName(classCoverage.getName()
-        .replace("/", "."));
+    this.executedTargetFQN = new TargetFullyQualifiedName(classCoverage.getName());
     this.statuses = convertClassCoverage(classCoverage);
   }
 

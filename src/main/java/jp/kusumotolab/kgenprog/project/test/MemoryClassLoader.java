@@ -108,7 +108,8 @@ public class MemoryClassLoader extends URLClassLoader {
   }
 
   private String convertStringNameToFqn(final String name) {
-    return name.replaceAll("\\.class$", "")
-        .replaceAll("\\/", ".");
+    return name //
+        .replaceAll("\\.class$", "")
+        .replace("/", ".");
   }
 }

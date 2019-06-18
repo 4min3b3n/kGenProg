@@ -326,9 +326,7 @@ class TestThread extends Thread {
           continue;
         }
 
-        final String strFqn = data.getName()
-            .replace("/", ".");
-        final FullyQualifiedName fqn = new TargetFullyQualifiedName(strFqn);
+        final FullyQualifiedName fqn = new TargetFullyQualifiedName(data.getName());
         final byte[] bytecode = buildResults.binaryStore.get(fqn)
             .getByteCode();
         analyzer.analyzeClass(bytecode, "");
