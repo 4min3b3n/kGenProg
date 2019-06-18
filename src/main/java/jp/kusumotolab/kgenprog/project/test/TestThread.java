@@ -51,8 +51,8 @@ class TestThread extends Thread {
   private final TargetProject targetProject;
   private final List<String> executionTestNames;
 
-  private long timeout;
-  private TimeUnit timeUnit;
+  private final long timeout;
+  private final TimeUnit timeUnit;
 
   /**
    * コンストラクタ．
