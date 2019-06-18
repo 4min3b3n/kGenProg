@@ -58,7 +58,7 @@ public class CrossoverTestVariants {
     }
 
     final TestResults testResultsA = Mockito.mock(TestResults.class);
-    when(testResultsA.getSuccessedTestFQNs())
+    when(testResultsA.getSucceededTestFQNs())
         .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test2"),
             new TestFullyQualifiedName("Test4"), new TestFullyQualifiedName("Test6"),
             new TestFullyQualifiedName("Test8"), new TestFullyQualifiedName("Test10")));
@@ -88,7 +88,7 @@ public class CrossoverTestVariants {
         .thenReturn(successedTestResult);
 
     final TestResults testResultsB = Mockito.mock(TestResults.class);
-    when(testResultsB.getSuccessedTestFQNs())
+    when(testResultsB.getSucceededTestFQNs())
         .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test1"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test5"),
             new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test9")));
@@ -118,7 +118,7 @@ public class CrossoverTestVariants {
         .thenReturn(failedTestResult);
 
     final TestResults testResultsC = Mockito.mock(TestResults.class);
-    when(testResultsC.getSuccessedTestFQNs()).thenReturn(
+    when(testResultsC.getSucceededTestFQNs()).thenReturn(
         Arrays.asList(new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test8"),
             new TestFullyQualifiedName("Test9"), new TestFullyQualifiedName("Test10")));
     when(testResultsC.getFailedTestFQNs()).thenReturn(
@@ -147,7 +147,7 @@ public class CrossoverTestVariants {
         .thenReturn(successedTestResult);
 
     final TestResults testResultsD = Mockito.mock(TestResults.class);
-    when(testResultsD.getSuccessedTestFQNs()).thenReturn(
+    when(testResultsD.getSucceededTestFQNs()).thenReturn(
         Arrays.asList(new TestFullyQualifiedName("Test1"), new TestFullyQualifiedName("Test2"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test4")));
     when(testResultsD.getFailedTestFQNs()).thenReturn(

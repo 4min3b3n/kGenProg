@@ -52,7 +52,7 @@ public class SecondVariantTestComplementaryBasedSelection
     // firstVariantにおいて，失敗したテスト一覧(failedTestFQNs)と成功したテスト一覧(successedTestFQNs)を取得
     final TestResults testResults = firstVariant.getTestResults();
     final List<FullyQualifiedName> failedTestFQNs = testResults.getFailedTestFQNs();
-    final List<FullyQualifiedName> successedTestFQNs = testResults.getSuccessedTestFQNs();
+    final List<FullyQualifiedName> successedTestFQNs = testResults.getSucceededTestFQNs();
 
     // secondVariantCandidatesを，successedTestFQNsにおいて成功したテストが多い順にソートし，
     // そのあとにfailedTestFQNsにおいて成功したテストが多い順にソート

@@ -105,7 +105,7 @@ public class TestResults {
    *
    * @return 成功したテストのFQN一覧
    */
-  public List<FullyQualifiedName> getSuccessedTestFQNs() {
+  public List<FullyQualifiedName> getSucceededTestFQNs() {
     return this.value.values()
         .stream()
         .filter(r -> !r.failed)
