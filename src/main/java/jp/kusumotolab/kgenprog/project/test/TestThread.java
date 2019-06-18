@@ -266,7 +266,7 @@ class TestThread extends Thread {
 
     @Override
     public void testStarted(Description description) {
-      jacocoRuntimeData.reset();
+      jacocoRuntimeData.reset(); // always force reset to record coverage for individual test method
       wasFailed = false;
     }
 
