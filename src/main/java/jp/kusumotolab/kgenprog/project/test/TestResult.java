@@ -34,13 +34,12 @@ public class TestResult {
   }
 
   /**
-   * 実行されたテストのFQN一覧を取得
-   * @return 実行されたテストのFQN一覧
+   * 当該テストで実行されたクラスのFQN一覧を取得
+   * @return 実行されたクラスのFQN一覧
    */
   public List<FullyQualifiedName> getExecutedTargetFQNs() {
-    return this.coverages.entrySet()
+    return this.coverages.keySet()
         .stream()
-        .map(e -> e.getKey())
         .collect(Collectors.toList());
   }
 
