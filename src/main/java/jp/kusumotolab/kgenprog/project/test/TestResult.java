@@ -15,8 +15,8 @@ import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
  */
 public class TestResult {
 
-  final public FullyQualifiedName executedTestFQN;
-  final public boolean failed;
+  final private FullyQualifiedName executedTestFQN;
+  final private boolean failed;
   final private Map<FullyQualifiedName, Coverage> coverages;
 
   /**
@@ -50,6 +50,14 @@ public class TestResult {
    */
   public Coverage getCoverages(final FullyQualifiedName testFQN) {
     return this.coverages.get(testFQN);
+  }
+
+  public FullyQualifiedName getExecutedTestFQN() {
+    return executedTestFQN;
+  }
+
+  public boolean wasFailed() {
+    return failed;
   }
 
   @Override

@@ -63,7 +63,7 @@ public class TestResultsSerializer implements JsonSerializer<TestResults> {
     final List<TestResult> testResultList = testResults.getExecutedTestFQNs()
         .stream()
         .map(testResults::getTestResult)
-        .sorted(Comparator.comparing(e -> e.executedTestFQN.value))
+        .sorted(Comparator.comparing(e -> e.getExecutedTestFQN().value))
         .collect(Collectors.toList());
     final JsonElement serializedTestResultList = context.serialize(testResultList);
 

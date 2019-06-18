@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
@@ -50,7 +51,7 @@ public class TestResults {
    * @param testResult
    */
   public void add(final TestResult testResult) {
-    entries.put(testResult.executedTestFQN, testResult);
+    entries.put(testResult.getExecutedTestFQN(), testResult);
   }
 
   /**
@@ -70,7 +71,7 @@ public class TestResults {
   public Set<TestResult> getFailedTestResults() {
     return entries.values()
         .stream()
-        .filter(r -> r.failed)
+        .filter(TestResult::wasFailed)
         .collect(Collectors.toSet());
   }
 
@@ -80,9 +81,10 @@ public class TestResults {
    * @return 成功したテスト結果s
    */
   public Set<TestResult> getSucceededTestResults() {
+    Predicate<TestResult> succeeded = TestResult::wasFailed;
     return entries.values()
         .stream()
-        .filter(r -> !r.failed)
+        .filter(succeeded.negate())
         .collect(Collectors.toSet());
   }
 
@@ -93,7 +95,7 @@ public class TestResults {
    */
   public Set<FullyQualifiedName> getFailedTestFQNs() {
     return getFailedTestResults().stream()
-        .map(r -> r.executedTestFQN)
+        .map(TestResult::getExecutedTestFQN)
         .collect(Collectors.toSet());
   }
 
@@ -104,7 +106,7 @@ public class TestResults {
    */
   public Set<FullyQualifiedName> getSucceededTestFQNs() {
     return getSucceededTestResults().stream()
-        .map(r -> r.executedTestFQN)
+        .map(TestResult::getExecutedTestFQN)
         .collect(Collectors.toSet());
   }
 
@@ -199,8 +201,8 @@ public class TestResults {
         continue;
       }
       final Coverage.Status _status = coverage.getStatus(lineNumber - 1);
-      if (status == _status && failed == testResult.failed) {
-        result.add(testResult.executedTestFQN);
+      if (status == _status && failed == testResult.wasFailed()) {
+        result.add(testResult.getExecutedTestFQN());
       }
     }
     return result;

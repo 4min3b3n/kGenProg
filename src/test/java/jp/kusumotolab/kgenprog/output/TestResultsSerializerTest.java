@@ -138,7 +138,7 @@ public class TestResultsSerializerTest {
 
       assertThat(testFQNs).contains(fqn);
       final TestResult testResult = result.getTestResult(fqn);
-      assertThat(isSuccess).isEqualTo(!testResult.failed);
+      assertThat(isSuccess).isEqualTo(!testResult.wasFailed());
     }
   }
 }

@@ -47,8 +47,8 @@ public class TestResultSerializer implements JsonSerializer<TestResult> {
       final JsonSerializationContext context) {
     final JsonObject serializedTestResult = new JsonObject();
 
-    serializedTestResult.addProperty("fqn", testResult.executedTestFQN.toString());
-    serializedTestResult.addProperty("isSuccess", !testResult.failed);
+    serializedTestResult.addProperty("fqn", testResult.getExecutedTestFQN().toString());
+    serializedTestResult.addProperty("isSuccess", !testResult.wasFailed());
 
     return serializedTestResult;
   }

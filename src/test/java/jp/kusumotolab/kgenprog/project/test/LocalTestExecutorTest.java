@@ -74,10 +74,9 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04);
 
     // よってテストの成功率はこうなる
     assertThat(result.getSuccessRate()).isEqualTo(1.0 * 3 / 4);
@@ -115,15 +114,10 @@ public class LocalTestExecutorTest {
         BAR_TEST01, BAR_TEST02, BAR_TEST03, BAR_TEST04, BAR_TEST05);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
-    assertThat(result.getTestResult(BAR_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(BAR_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(BAR_TEST03).failed).isFalse();
-    assertThat(result.getTestResult(BAR_TEST04).failed).isFalse();
-    assertThat(result.getTestResult(BAR_TEST05).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04, //
+        BAR_TEST01, BAR_TEST02, BAR_TEST03, BAR_TEST04, BAR_TEST05);
 
     final TestResult fooTest01result = result.getTestResult(FOO_TEST01);
     // FooTest.test01()ではFooが実行されたはず
@@ -238,10 +232,9 @@ public class LocalTestExecutorTest {
     // BarTest01, BarTest02, BarTest03, BarTest04, BarTest05);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04);
 
     final TestResult fooTest01result = result.getTestResult(FOO_TEST01);
 
@@ -292,10 +285,10 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse(); // ここで動的ロード．パスするはず
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04 // ここで動的ロード．パスするはず
+    );
   }
 
   @Test
@@ -316,10 +309,9 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04);
   }
 
   @Test
@@ -345,10 +337,9 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04);
   }
 
   @Test
@@ -369,10 +360,9 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 一つバグるはず
-    assertThat(result1.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result1.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result1.getTestResult(FOO_TEST03).failed).isTrue();
-    assertThat(result1.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result1.getFailedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST03);
+    assertThat(result1.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST04);
 
     // FooのASTを取り出す
     final ProductSourcePath fooPath = new ProductSourcePath(rootPath, Src.FOO);
@@ -398,10 +388,9 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 全て成功するはず
-    assertThat(result2.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result2.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result2.getTestResult(FOO_TEST03).failed).isFalse();
-    assertThat(result2.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result2.getFailedTestFQNs()).isEmpty();
+    assertThat(result2.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
   }
 
   @Test
@@ -430,10 +419,9 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).isEmpty();
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
   }
 
   @Test
@@ -455,14 +443,15 @@ public class LocalTestExecutorTest {
 
     final TestResults result = executor.exec(variant);
 
-    // 実行されたテストは1個のはず
-    assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
-
     // user.dir を戻しておく（副作用回避）
     System.setProperty("user.dir", userDir);
 
+    // 実行されたテストは1個のはず
+    assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
+
     // テストは成功するはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).isEmpty();
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
   }
 
   @Test
@@ -484,14 +473,15 @@ public class LocalTestExecutorTest {
 
     final TestResults result = executor.exec(variant);
 
-    // 実行されたテストは1個のはず
-    assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
-
     // user.dir を戻しておく（副作用回避）
     System.setProperty("user.dir", userDir);
 
+    // 実行されたテストは1個のはず
+    assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
+
     // テストは成功するはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).isEmpty();
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
   }
 
   @Test
@@ -512,10 +502,9 @@ public class LocalTestExecutorTest {
     // 無限ループが発生するが3つのテストが実行されるはず
     assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder( //
         FOO_TEST01, FOO_TEST02, FOO_TEST03);
-
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST02, FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01);
   }
 
   @Test
@@ -555,9 +544,10 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST02, FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01);
 
     // スレッド打ち切りの確認：
 
@@ -607,9 +597,10 @@ public class LocalTestExecutorTest {
         FOO_TEST01, FOO_TEST02, FOO_TEST03);
 
     // 全テストの成否はこうなるはず
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isTrue();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isTrue();
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST02, FOO_TEST03);
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01);
 
     // スレッド打ち切りの確認：
 
@@ -662,14 +653,12 @@ public class LocalTestExecutorTest {
     assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder( //
         test01, test02, test03, test04, test11, test12, test13, test14);
 
-    assertThat(result.getTestResult(test01).failed).isFalse();
-    assertThat(result.getTestResult(test02).failed).isFalse();
-    assertThat(result.getTestResult(test03).failed).isTrue(); // ContextClassLoader経由のロードは失敗する
-    assertThat(result.getTestResult(test04).failed).isFalse();
-    assertThat(result.getTestResult(test11).failed).isFalse();
-    assertThat(result.getTestResult(test12).failed).isFalse();
-    assertThat(result.getTestResult(test13).failed).isTrue(); // ContextClassLoader経由のロードは失敗する
-    assertThat(result.getTestResult(test14).failed).isFalse();
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        test01, test02, test04, test11, test12, test14);
+    assertThat(result.getFailedTestFQNs()).containsExactlyInAnyOrder( //
+        test03, // ContextClassLoader経由のロードは失敗する
+        test13 // ContextClassLoader経由のロードは失敗する
+    );
   }
 
   @Test
@@ -687,9 +676,8 @@ public class LocalTestExecutorTest {
     final TestResults result = executor.exec(variant);
 
     assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01, FOO_TEST02);
-
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).isEmpty();
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder(FOO_TEST01, FOO_TEST02);
   }
 
   @Test
@@ -708,10 +696,9 @@ public class LocalTestExecutorTest {
 
     assertThat(result.getExecutedTestFQNs()).containsExactlyInAnyOrder( //
         FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
-    assertThat(result.getTestResult(FOO_TEST01).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST02).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST03).failed).isFalse();
-    assertThat(result.getTestResult(FOO_TEST04).failed).isFalse();
+    assertThat(result.getFailedTestFQNs()).isEmpty();
+    assertThat(result.getSucceededTestFQNs()).containsExactlyInAnyOrder( //
+        FOO_TEST01, FOO_TEST02, FOO_TEST03, FOO_TEST04);
   }
 
   private List<Status> extractStatuses(final Coverage coverage) {
