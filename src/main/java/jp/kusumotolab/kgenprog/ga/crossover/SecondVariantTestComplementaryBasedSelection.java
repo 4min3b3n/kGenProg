@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
@@ -51,13 +52,13 @@ public class SecondVariantTestComplementaryBasedSelection
 
     // firstVariantにおいて，失敗したテスト一覧(failedTestFQNs)と成功したテスト一覧(successedTestFQNs)を取得
     final TestResults testResults = firstVariant.getTestResults();
-    final List<FullyQualifiedName> failedTestFQNs = testResults.getFailedTestFQNs();
-    final List<FullyQualifiedName> successedTestFQNs = testResults.getSucceededTestFQNs();
+    final Set<FullyQualifiedName> failedTestFQNs = testResults.getFailedTestFQNs();
+    final Set<FullyQualifiedName> succeededTestFQNs = testResults.getSucceededTestFQNs();
 
     // secondVariantCandidatesを，successedTestFQNsにおいて成功したテストが多い順にソートし，
     // そのあとにfailedTestFQNsにおいて成功したテストが多い順にソート
     final Comparator<Variant> comparator = Comparator
-        .<Variant>comparingLong(v -> getSuccessedNumber(v.getTestResults(), successedTestFQNs))
+        .<Variant>comparingLong(v -> getSuccessedNumber(v.getTestResults(), succeededTestFQNs))
         .reversed()
         .thenComparingLong(v -> getSuccessedNumber(v.getTestResults(), failedTestFQNs))
         .reversed();

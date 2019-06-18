@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import org.mockito.Mockito;
+import com.google.common.collect.Sets;
 import jp.kusumotolab.kgenprog.ga.validation.Fitness;
 import jp.kusumotolab.kgenprog.ga.validation.SimpleFitness;
 import jp.kusumotolab.kgenprog.ga.variant.Base;
@@ -59,11 +60,11 @@ public class CrossoverTestVariants {
 
     final TestResults testResultsA = Mockito.mock(TestResults.class);
     when(testResultsA.getSucceededTestFQNs())
-        .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test2"),
+        .thenReturn(Sets.newHashSet(new TestFullyQualifiedName("Test2"),
             new TestFullyQualifiedName("Test4"), new TestFullyQualifiedName("Test6"),
             new TestFullyQualifiedName("Test8"), new TestFullyQualifiedName("Test10")));
     when(testResultsA.getFailedTestFQNs())
-        .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test1"),
+        .thenReturn(Sets.newHashSet(new TestFullyQualifiedName("Test1"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test5"),
             new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test9")));
     when(testResultsA.getTestResult(new TestFullyQualifiedName("Test1")))
@@ -89,11 +90,11 @@ public class CrossoverTestVariants {
 
     final TestResults testResultsB = Mockito.mock(TestResults.class);
     when(testResultsB.getSucceededTestFQNs())
-        .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test1"),
+        .thenReturn(Sets.newHashSet(new TestFullyQualifiedName("Test1"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test5"),
             new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test9")));
     when(testResultsB.getFailedTestFQNs())
-        .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test2"),
+        .thenReturn(Sets.newHashSet(new TestFullyQualifiedName("Test2"),
             new TestFullyQualifiedName("Test4"), new TestFullyQualifiedName("Test6"),
             new TestFullyQualifiedName("Test8"), new TestFullyQualifiedName("Test10")));
     when(testResultsB.getTestResult(new TestFullyQualifiedName("Test1")))
@@ -119,10 +120,10 @@ public class CrossoverTestVariants {
 
     final TestResults testResultsC = Mockito.mock(TestResults.class);
     when(testResultsC.getSucceededTestFQNs()).thenReturn(
-        Arrays.asList(new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test8"),
+        Sets.newHashSet(new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test8"),
             new TestFullyQualifiedName("Test9"), new TestFullyQualifiedName("Test10")));
     when(testResultsC.getFailedTestFQNs()).thenReturn(
-        Arrays.asList(new TestFullyQualifiedName("Test1"), new TestFullyQualifiedName("Test2"),
+        Sets.newHashSet(new TestFullyQualifiedName("Test1"), new TestFullyQualifiedName("Test2"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test4"),
             new TestFullyQualifiedName("Test5"), new TestFullyQualifiedName("Test6")));
     when(testResultsC.getTestResult(new TestFullyQualifiedName("Test1")))
@@ -148,10 +149,10 @@ public class CrossoverTestVariants {
 
     final TestResults testResultsD = Mockito.mock(TestResults.class);
     when(testResultsD.getSucceededTestFQNs()).thenReturn(
-        Arrays.asList(new TestFullyQualifiedName("Test1"), new TestFullyQualifiedName("Test2"),
+        Sets.newHashSet(new TestFullyQualifiedName("Test1"), new TestFullyQualifiedName("Test2"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test4")));
     when(testResultsD.getFailedTestFQNs()).thenReturn(
-        Arrays.asList(new TestFullyQualifiedName("Test5"), new TestFullyQualifiedName("Test6"),
+        Sets.newHashSet(new TestFullyQualifiedName("Test5"), new TestFullyQualifiedName("Test6"),
             new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test8"),
             new TestFullyQualifiedName("Test9"), new TestFullyQualifiedName("Test10")));
     when(testResultsD.getTestResult(new TestFullyQualifiedName("Test1")))

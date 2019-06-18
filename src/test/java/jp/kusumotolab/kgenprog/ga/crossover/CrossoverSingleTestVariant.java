@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.util.Arrays;
 import org.mockito.Mockito;
+import com.google.common.collect.Sets;
 import jp.kusumotolab.kgenprog.ga.validation.Fitness;
 import jp.kusumotolab.kgenprog.ga.validation.SimpleFitness;
 import jp.kusumotolab.kgenprog.ga.variant.Base;
@@ -31,7 +32,7 @@ public class CrossoverSingleTestVariant {
 
     final TestResults testResultsA = Mockito.mock(TestResults.class);
     when(testResultsA.getFailedTestFQNs())
-        .thenReturn(Arrays.asList(new TestFullyQualifiedName("Test1"),
+        .thenReturn(Sets.newHashSet(new TestFullyQualifiedName("Test1"),
             new TestFullyQualifiedName("Test3"), new TestFullyQualifiedName("Test5"),
             new TestFullyQualifiedName("Test7"), new TestFullyQualifiedName("Test9")));
 

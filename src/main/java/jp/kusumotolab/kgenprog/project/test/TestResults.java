@@ -67,11 +67,11 @@ public class TestResults {
    *
    * @return 失敗したテスト結果s
    */
-  public List<TestResult> getFailedTestResults() {
+  public Set<TestResult> getFailedTestResults() {
     return entries.values()
         .stream()
         .filter(r -> r.failed)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -79,11 +79,11 @@ public class TestResults {
    *
    * @return 成功したテスト結果s
    */
-  public List<TestResult> getSucceededTestResults() {
+  public Set<TestResult> getSucceededTestResults() {
     return entries.values()
         .stream()
         .filter(r -> !r.failed)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -91,10 +91,10 @@ public class TestResults {
    * 
    * @return 失敗したテストのFQN一覧
    */
-  public List<FullyQualifiedName> getFailedTestFQNs() {
+  public Set<FullyQualifiedName> getFailedTestFQNs() {
     return getFailedTestResults().stream()
         .map(r -> r.executedTestFQN)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -102,10 +102,10 @@ public class TestResults {
    *
    * @return 成功したテストのFQN一覧
    */
-  public List<FullyQualifiedName> getSucceededTestFQNs() {
+  public Set<FullyQualifiedName> getSucceededTestFQNs() {
     return getSucceededTestResults().stream()
         .map(r -> r.executedTestFQN)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -113,11 +113,11 @@ public class TestResults {
    *
    * @return 失敗テストによって実行されたクラスのFQN一覧
    */
-  public List<FullyQualifiedName> getTargetFQNsExecutedByFailedTests() {
+  public Set<FullyQualifiedName> getTargetFQNsExecutedByFailedTests() {
     return getFailedTestResults().stream()
         .map(TestResult::getExecutedTargetFQNs)
         .flatMap(Collection::stream)
-        .collect(Collectors.toList());
+        .collect(Collectors.toSet());
   }
 
   /**
