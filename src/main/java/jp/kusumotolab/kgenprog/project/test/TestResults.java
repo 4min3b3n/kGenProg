@@ -27,14 +27,13 @@ import jp.kusumotolab.kgenprog.project.test.Coverage.Status;
 public class TestResults {
 
   private BuildResults buildResults;
-
-  private final Map<FullyQualifiedName, TestResult> value;
+  private final Map<FullyQualifiedName, TestResult> entries;
 
   /**
    * constructor
    */
   public TestResults() {
-    this.value = new HashMap<>();
+    entries = new HashMap<>();
   }
 
   /**
@@ -51,31 +50,7 @@ public class TestResults {
    * @param testResult
    */
   public void add(final TestResult testResult) {
-    this.value.put(testResult.executedTestFQN, testResult);
-  }
-
-  /**
-   * 失敗したテストのFQN一覧を取得．
-   * 
-   * @return 失敗したテスト結果s
-   */
-  public List<TestResult> getFailedTestResults() {
-    return this.value.values()
-        .stream()
-        .filter(r -> r.failed)
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * 成功したテストのFQN一覧を取得．
-   * 
-   * @return 成功したテスト結果s
-   */
-  public List<TestResult> getSuccessedTestResults() {
-    return this.value.values()
-        .stream()
-        .filter(r -> !r.failed)
-        .collect(Collectors.toList());
+    entries.put(testResult.executedTestFQN, testResult);
   }
 
   /**
@@ -84,7 +59,31 @@ public class TestResults {
    * @return 実行されたテストメソッドのFQN一覧
    */
   public Set<FullyQualifiedName> getExecutedTestFQNs() {
-    return this.value.keySet();
+    return entries.keySet();
+  }
+
+  /**
+   * 失敗したテストのFQN一覧を取得．
+   *
+   * @return 失敗したテスト結果s
+   */
+  public List<TestResult> getFailedTestResults() {
+    return entries.values()
+        .stream()
+        .filter(r -> r.failed)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * 成功したテストのFQN一覧を取得．
+   *
+   * @return 成功したテスト結果s
+   */
+  public List<TestResult> getSucceededTestResults() {
+    return entries.values()
+        .stream()
+        .filter(r -> !r.failed)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -93,9 +92,7 @@ public class TestResults {
    * @return 失敗したテストのFQN一覧
    */
   public List<FullyQualifiedName> getFailedTestFQNs() {
-    return this.value.values()
-        .stream()
-        .filter(r -> r.failed)
+    return getFailedTestResults().stream()
         .map(r -> r.executedTestFQN)
         .collect(Collectors.toList());
   }
@@ -106,9 +103,7 @@ public class TestResults {
    * @return 成功したテストのFQN一覧
    */
   public List<FullyQualifiedName> getSucceededTestFQNs() {
-    return this.value.values()
-        .stream()
-        .filter(r -> !r.failed)
+    return getSucceededTestResults().stream()
         .map(r -> r.executedTestFQN)
         .collect(Collectors.toList());
   }
@@ -133,7 +128,7 @@ public class TestResults {
    */
   public TestResult getTestResult(final FullyQualifiedName testFQN) {
     // TODO if null
-    return this.value.get(testFQN);
+    return entries.get(testFQN);
   }
 
   /**
@@ -143,7 +138,7 @@ public class TestResults {
    */
   public double getSuccessRate() {
     final int fail = getFailedTestResults().size();
-    final int success = getSuccessedTestResults().size();
+    final int success = getSucceededTestResults().size();
 
     return 1.0 * success / (success + fail);
   }
@@ -193,7 +188,7 @@ public class TestResults {
     final List<FullyQualifiedName> result = new ArrayList<>();
 
     // 全てのテストケースを探索
-    for (final TestResult testResult : this.value.values()) {
+    for (final TestResult testResult : entries.values()) {
       final Coverage coverage = testResult.getCoverages(targetFQN);
 
       if (coverage == null || lineNumber > coverage.getStatusesSize()) {
@@ -244,7 +239,7 @@ public class TestResults {
    */
   public long getNumberOfPassedTestsNotExecutingTheStatement(
       final ProductSourcePath productSourcePath, final ASTLocation location) {
-    return getSuccessedTestResults().size()
+    return getSucceededTestResults().size()
         - getNumberOfPassedTestsExecutingTheStatement(productSourcePath, location);
   }
 
@@ -269,7 +264,7 @@ public class TestResults {
   public String toString() {
     final StringBuilder sb = new StringBuilder();
     sb.append("[\n");
-    sb.append(String.join(",\n", this.value.values()
+    sb.append(String.join(",\n", entries.values()
         .stream()
         .map(v -> v.toString(2))
         .collect(Collectors.toList())));
