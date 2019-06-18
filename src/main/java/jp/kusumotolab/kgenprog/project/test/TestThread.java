@@ -65,9 +65,10 @@ class TestThread extends Thread {
   public TestThread(final BuildResults buildResults, final TargetProject targetProject,
       final List<String> executionTestNames, final long timeout) {
 
-    this.jacocoRuntime = new LoggerRuntime();
-    this.jacocoInstrumenter = new Instrumenter(jacocoRuntime);
-    this.jacocoRuntimeData = new RuntimeData();
+    jacocoRuntime = new LoggerRuntime();
+    jacocoInstrumenter = new Instrumenter(jacocoRuntime);
+    jacocoRuntimeData = new RuntimeData();
+
     try {
       jacocoRuntime.startup(jacocoRuntimeData);
     } catch (final Exception e) {
@@ -91,7 +92,7 @@ class TestThread extends Thread {
    * @return テストの結果
    */
   public TestResults getTestResults() {
-    return this.testResults;
+    return testResults;
   }
 
   /**
