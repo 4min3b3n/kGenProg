@@ -42,9 +42,6 @@ import jp.kusumotolab.kgenprog.project.factory.TargetProject;
  */
 class TestThread extends Thread {
 
-  private final IRuntime jacocoRuntime;
-  private final Instrumenter jacocoInstrumenter;
-  private final RuntimeData jacocoRuntimeData;
   private final BuildResults buildResults;
   private TestResults testResults; // スレッドの返り値として用いるためにnon-finalフィールド
 
@@ -53,6 +50,10 @@ class TestThread extends Thread {
 
   private final long timeout;
   private final TimeUnit timeUnit;
+
+  private final IRuntime jacocoRuntime;
+  private final Instrumenter jacocoInstrumenter;
+  private final RuntimeData jacocoRuntimeData;
 
   /**
    * コンストラクタ．
@@ -65,6 +66,15 @@ class TestThread extends Thread {
   public TestThread(final BuildResults buildResults, final TargetProject targetProject,
       final List<String> executionTestNames, final long timeout) {
 
+    this.buildResults = buildResults;
+    this.targetProject = targetProject;
+    this.executionTestNames = executionTestNames;
+
+    // カスタムJUnit上でのタイムアウト時間を設定
+    this.timeout = timeout;
+    this.timeUnit = TimeUnit.SECONDS; // TODO タイムアウトは秒単位が前提
+
+    // jacoco common initializations
     jacocoRuntime = new LoggerRuntime();
     jacocoInstrumenter = new Instrumenter(jacocoRuntime);
     jacocoRuntimeData = new RuntimeData();
@@ -76,13 +86,6 @@ class TestThread extends Thread {
       e.printStackTrace();
     }
 
-    this.buildResults = buildResults;
-    this.targetProject = targetProject;
-    this.executionTestNames = executionTestNames;
-
-    // カスタムJUnit上でのタイムアウト時間を設定
-    this.timeout = timeout;
-    this.timeUnit = TimeUnit.SECONDS; // TODO タイムアウトは秒単位が前提
   }
 
   /**
