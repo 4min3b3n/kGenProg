@@ -49,8 +49,7 @@ public class LazyVariant extends Variant {
   /**
    * @param testResultsSingle テスト処理を持った Single
    */
-  void setTestResultsSingle(
-      final Single<TestResults> testResultsSingle) {
+  void setTestResultsSingle(final Single<TestResults> testResultsSingle) {
     this.testResultsSingle = testResultsSingle;
   }
 

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 import org.eclipse.jdt.core.dom.ASTNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import jp.kusumotolab.kgenprog.fl.Suspiciousness;
 import jp.kusumotolab.kgenprog.ga.Roulette;
 import jp.kusumotolab.kgenprog.ga.variant.HistoricalElement;
@@ -32,6 +34,7 @@ import jp.kusumotolab.kgenprog.project.jdt.ReplaceOperation;
  */
 public class RandomMutation extends Mutation {
 
+  private final Logger log = LoggerFactory.getLogger(RandomMutation.class);
   private final boolean needHistoricalElement;
 
   /**
@@ -72,17 +75,30 @@ public class RandomMutation extends Mutation {
     }, random);
 
     for (int i = 0; i < mutationGeneratingCount; i++) {
+      log.info("[" + i + " start]");
+      final long start = System.currentTimeMillis();
+
+      final long s1 = System.currentTimeMillis();
       final Variant variant = variantRoulette.exec();
+      log.info("variant selection: " + (System.currentTimeMillis() - s1));
+
+      final long s2 = System.currentTimeMillis();
       final List<Suspiciousness> suspiciousnesses = variant.getSuspiciousnesses();
+      log.info("fault localization: " + (System.currentTimeMillis() - s2));
+
       final Function<Suspiciousness, Double> weightFunction = susp -> Math.pow(susp.getValue(), 2);
 
       if (suspiciousnesses.isEmpty()) {
         continue;
       }
+      final long s3 = System.currentTimeMillis();
       final Roulette<Suspiciousness> roulette =
           new Roulette<>(suspiciousnesses, weightFunction, random);
 
       final Suspiciousness suspiciousness = roulette.exec();
+      log.info("Suspiciousness Selection: " + (System.currentTimeMillis() - s3));
+
+      final long s4 = System.currentTimeMillis();
       final Base base = makeBase(suspiciousness);
       final Gene gene = makeGene(variant.getGene(), base);
       final HistoricalElement element;
@@ -91,7 +107,13 @@ public class RandomMutation extends Mutation {
       } else {
         element = null;
       }
+      log.info("Make Gene: " + (System.currentTimeMillis() - s4));
+
+      final long s5 = System.currentTimeMillis();
       generatedVariants.add(variantStore.createVariant(gene, element));
+      log.info("Create Variant: " + (System.currentTimeMillis() - s5));
+
+      log.info("[" + i + " end] " + (System.currentTimeMillis() - start));
     }
 
     return generatedVariants;
