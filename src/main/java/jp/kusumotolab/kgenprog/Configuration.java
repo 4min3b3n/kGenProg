@@ -61,7 +61,7 @@ public class Configuration {
       FirstVariantSelectionStrategy.Strategy.Random;
   public static final SecondVariantSelectionStrategy.Strategy DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY =
       SecondVariantSelectionStrategy.Strategy.Random;
-  public static final boolean DEFAULT_NEED_HISTORICAL_ELEMENT = true;
+  public static final boolean DEFAULT_NEED_HISTORICAL_ELEMENT = false;
 
   private final TargetProject targetProject;
   private final List<String> executionTests;
