@@ -49,7 +49,7 @@ public class Configuration {
   public static final int DEFAULT_REQUIRED_SOLUTIONS_COUNT = 1;
   public static final Duration DEFAULT_TIME_LIMIT = Duration.ofSeconds(60);
   public static final Duration DEFAULT_TEST_TIME_LIMIT = Duration.ofSeconds(10);
-  public static final Level DEFAULT_LOG_LEVEL = Level.INFO;
+  public static final Level DEFAULT_LOG_LEVEL = Level.DEBUG;
   public static final Path DEFAULT_OUT_DIR = Paths.get("kgenprog-out");
   public static final boolean DEFAULT_IS_FORCE = false;
   public static final long DEFAULT_RANDOM_SEED = 0;
