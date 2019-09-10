@@ -2,6 +2,8 @@ package jp.kusumotolab.kgenprog.ga.mutation;
 
 import java.util.Random;
 import org.eclipse.jdt.core.dom.ASTNode;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
 import jp.kusumotolab.kgenprog.ga.mutation.Scope.Type;
 import jp.kusumotolab.kgenprog.ga.mutation.selection.CandidateSelection;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
@@ -18,6 +20,7 @@ import jp.kusumotolab.kgenprog.project.jdt.ReplaceOperation;
  *
  * @see Mutation
  */
+@Kgp(type = StrategyType.Mutation, name = "Simple", description = "The mutation is completely based on random numbers.")
 public class SimpleMutation extends Mutation {
 
   protected final Type type;
