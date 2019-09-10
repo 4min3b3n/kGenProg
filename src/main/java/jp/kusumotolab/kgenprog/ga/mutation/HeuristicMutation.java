@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import org.eclipse.jdt.core.dom.ASTNode;
 import com.google.common.collect.Lists;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
 import jp.kusumotolab.kgenprog.ga.Roulette;
 import jp.kusumotolab.kgenprog.ga.mutation.heuristic.DeleteOperationGenerator;
 import jp.kusumotolab.kgenprog.ga.mutation.heuristic.InsertAfterOperationGenerator;
@@ -23,6 +25,7 @@ import jp.kusumotolab.kgenprog.project.jdt.JDTASTLocation;
  * ヒューリティクスを適用してビルドサクセスの数を増やす Mutation
  * 現状，修正対象の行でアクセスできる変数名に書き換えて変異処理を行う
  */
+@Kgp(type = StrategyType.Mutation, name = "HeuristicMutation", description = "The mutation is based on some heuristic approaches.")
 public class HeuristicMutation extends Mutation {
 
   protected final Scope.Type scopeType;
@@ -70,7 +73,8 @@ public class HeuristicMutation extends Mutation {
 
     final ASTNode nodeForReuse = operationGenerator.chooseNodeForReuse(candidateSelection, location,
         scopeType); // 再利用するノードの選択
-    final ASTNode rewritedNode = rewrite(nodeForReuse, variableSearcher.exec(location)); // 再利用するノードを書き換え
+    final ASTNode rewritedNode = rewrite(nodeForReuse,
+        variableSearcher.exec(location)); // 再利用するノードを書き換え
     return operationGenerator.generate(jdtastLocation, rewritedNode); // 操作の生成
   }
 
