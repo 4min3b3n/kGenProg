@@ -29,8 +29,6 @@ import com.electronwill.nightconfig.core.conversion.SpecNotNull;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.google.common.collect.ImmutableList;
 import ch.qos.logback.classic.Level;
-import jp.kusumotolab.kgenprog.fl.FaultLocalization;
-import jp.kusumotolab.kgenprog.fl.FaultLocalization.Technique;
 import jp.kusumotolab.kgenprog.ga.crossover.Crossover;
 import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy;
 import jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy;
@@ -55,7 +53,9 @@ public class Configuration {
   public static final long DEFAULT_RANDOM_SEED = 0;
   public static final Scope.Type DEFAULT_SCOPE = Scope.Type.PACKAGE;
   public static final boolean DEFAULT_NEED_NOT_OUTPUT = false;
-  public static final FaultLocalization.Technique DEFAULT_FAULT_LOCALIZATION = FaultLocalization.Technique.Ochiai;
+  public static final String DEFAULT_FAULT_LOCALIZE_NAME = "Ochiai";
+  public static final String DEFAULT_CANDIDATE_SELECTION_NAME = "Roulette";
+  public static final String DEFAULT_MUTATION_NAME = "Simple";
   public static final Crossover.Type DEFAULT_CROSSOVER_TYPE = Crossover.Type.Random;
   public static final FirstVariantSelectionStrategy.Strategy DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY =
       FirstVariantSelectionStrategy.Strategy.Random;
@@ -78,7 +78,9 @@ public class Configuration {
   private final long randomSeed;
   private final Scope.Type scope;
   private final boolean needNotOutput;
-  private final FaultLocalization.Technique faultLocalization;
+  private final String faultLocalizationName;
+  private final String candidateSelectionName;
+  private final String mutationName;
   private final Crossover.Type crossoverType;
   private final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategy;
   private final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategy;
@@ -103,7 +105,9 @@ public class Configuration {
     randomSeed = builder.randomSeed;
     scope = builder.scope;
     needNotOutput = builder.needNotOutput;
-    faultLocalization = builder.faultLocalization;
+    faultLocalizationName = builder.faultLocalizationName;
+    candidateSelectionName = builder.candidateSelectionName;
+    mutationName = builder.mutationName;
     crossoverType = builder.crossoverType;
     firstVariantSelectionStrategy = builder.firstVariantSelectionStrategy;
     secondVariantSelectionStrategy = builder.secondVariantSelectionStrategy;
@@ -180,8 +184,16 @@ public class Configuration {
     return needNotOutput;
   }
 
-  public FaultLocalization.Technique getFaultLocalization() {
-    return faultLocalization;
+  public String getFaultLocalizationName() {
+    return faultLocalizationName;
+  }
+
+  public String getCandidateSelectionName() {
+    return candidateSelectionName;
+  }
+
+  public String getMutationName() {
+    return mutationName;
   }
 
   public Crossover.Type getCrossoverType() {
@@ -224,34 +236,27 @@ public class Configuration {
     // region Fields
 
     private static transient final Logger log = LoggerFactory.getLogger(Builder.class);
-
+    @com.electronwill.nightconfig.core.conversion.Path("exec-test")
+    @PreserveNotNull
+    private final List<String> executionTests = new ArrayList<>();
     @PreserveNotNull
     private Path configPath = Paths.get("kgenprog.toml");
-
     @com.electronwill.nightconfig.core.conversion.Path("root-dir")
     @SpecNotNull
     @Conversion(PathToString.class)
     private Path rootDir;
-
     @com.electronwill.nightconfig.core.conversion.Path("src")
     @SpecNotNull
     @Conversion(PathsToStrings.class)
     private List<Path> productPaths;
-
     @com.electronwill.nightconfig.core.conversion.Path("test")
     @SpecNotNull
     @Conversion(PathsToStrings.class)
     private List<Path> testPaths;
-
     @com.electronwill.nightconfig.core.conversion.Path("cp")
     @PreserveNotNull
     @Conversion(PathsToStrings.class)
     private List<Path> classPaths = new ArrayList<>();
-
-    @com.electronwill.nightconfig.core.conversion.Path("exec-test")
-    @PreserveNotNull
-    private final List<String> executionTests = new ArrayList<>();
-
     private transient TargetProject targetProject;
 
     @com.electronwill.nightconfig.core.conversion.Path("out-dir")
@@ -313,8 +318,15 @@ public class Configuration {
 
     @com.electronwill.nightconfig.core.conversion.Path("fault-localization")
     @PreserveNotNull
-    @Conversion(FaultLocalizationTechniqueToString.class)
-    private FaultLocalization.Technique faultLocalization = DEFAULT_FAULT_LOCALIZATION;
+    private String faultLocalizationName = DEFAULT_FAULT_LOCALIZE_NAME;
+
+    @com.electronwill.nightconfig.core.conversion.Path("candidate-selection")
+    @PreserveNotNull
+    private String candidateSelectionName = DEFAULT_CANDIDATE_SELECTION_NAME;
+
+    @com.electronwill.nightconfig.core.conversion.Path("mutation")
+    @PreserveNotNull
+    private String mutationName = DEFAULT_MUTATION_NAME;
 
     @com.electronwill.nightconfig.core.conversion.Path("crossover-type")
     @PreserveNotNull
@@ -406,6 +418,75 @@ public class Configuration {
       }
 
       return builder;
+    }
+
+    private static void validateArgument(final Builder builder) throws IllegalArgumentException {
+      validateExistences(builder);
+      validateCurrentDir(builder);
+      validateOutDir(builder);
+    }
+
+    private static void validateExistences(final Builder builder) throws IllegalArgumentException {
+      validateExistence(builder.rootDir);
+      builder.productPaths.forEach(Builder::validateExistence);
+      builder.testPaths.forEach(Builder::validateExistence);
+      builder.classPaths.forEach(Builder::validateExistence);
+    }
+
+    private static void validateExistence(final Path path) throws IllegalArgumentException {
+      if (Files.notExists(path)) {
+        log.error(path.toString() + " does not exist.");
+        throw new IllegalArgumentException(path.toString() + " does not exist.");
+      }
+    }
+
+    private static void validateCurrentDir(Builder builder) {
+      final Path currentDir = Paths.get(".");
+      final Path projectRootDir = builder.rootDir;
+
+      try {
+        if (!isQuiet(builder) && !Files.isSameFile(currentDir, projectRootDir)) {
+          log.warn(
+              "The directory where kGenProg is running is different from the root directory of the given target project.");
+          log.warn(
+              "If the target project include test cases with file I/O, such test cases won't run correctly.");
+          log.warn(
+              "We recommend that you run kGenProg with the root directory of the target project as the current directory.");
+        }
+      } catch (final IOException e) {
+        throw new IllegalArgumentException("directory " + projectRootDir + " is not accessible");
+      }
+    }
+
+    private static void validateOutDir(final Builder builder) {
+
+      if (Files.notExists(builder.outDir)) {
+        return;
+      }
+
+      try {
+        final List<Path> subFiles = Files.walk(builder.outDir, FileVisitOption.FOLLOW_LINKS)
+            .filter(e -> !e.equals(builder.outDir))
+            .collect(Collectors.toList());
+
+        if (subFiles.isEmpty() && !builder.isForce) {
+          final String outDirName = builder.outDir
+              .toString();
+          log.warn("Cannot write patches, because directory {} is not empty.", outDirName);
+          log.warn("If you want patches, please run with -f or empty {}", outDirName);
+        }
+      } catch (final IOException e) {
+        throw new IllegalArgumentException("directory " + builder.outDir + " is not accessible");
+      }
+    }
+
+    private static boolean isQuiet(final Builder builder) {
+      return builder.logLevel.equals(Level.ERROR);
+    }
+
+    private static boolean needsParseConfigFile(final String[] args) {
+      return args.length == 0 || Arrays.asList(args)
+          .contains("--config");
     }
 
     public Configuration build() {
@@ -507,13 +588,27 @@ public class Configuration {
       return this;
     }
 
+    // endregion
+
+    // region Private methods
+
     public Builder setNeedNotOutput(final boolean needNotOutput) {
       this.needNotOutput = needNotOutput;
       return this;
     }
 
-    public Builder setFaultLocalization(final FaultLocalization.Technique faultLocalization) {
-      this.faultLocalization = faultLocalization;
+    public Builder setFaultLocalization(final String faultLocalizationName) {
+      this.faultLocalizationName = faultLocalizationName;
+      return this;
+    }
+
+    public Builder setCandidateSelectionName(final String candidateSelectionName) {
+      this.candidateSelectionName = candidateSelectionName;
+      return this;
+    }
+
+    public Builder setMutationName(final String mutationName) {
+      this.mutationName = mutationName;
       return this;
     }
 
@@ -537,79 +632,6 @@ public class Configuration {
     public Builder setNeedHistoricalElement(final boolean needHistoricalElement) {
       this.needHistoricalElement = needHistoricalElement;
       return this;
-    }
-
-    // endregion
-
-    // region Private methods
-
-    private static void validateArgument(final Builder builder) throws IllegalArgumentException {
-      validateExistences(builder);
-      validateCurrentDir(builder);
-      validateOutDir(builder);
-    }
-
-    private static void validateExistences(final Builder builder) throws IllegalArgumentException {
-      validateExistence(builder.rootDir);
-      builder.productPaths.forEach(Builder::validateExistence);
-      builder.testPaths.forEach(Builder::validateExistence);
-      builder.classPaths.forEach(Builder::validateExistence);
-    }
-
-    private static void validateExistence(final Path path) throws IllegalArgumentException {
-      if (Files.notExists(path)) {
-        log.error(path.toString() + " does not exist.");
-        throw new IllegalArgumentException(path.toString() + " does not exist.");
-      }
-    }
-
-    private static void validateCurrentDir(Builder builder) {
-      final Path currentDir = Paths.get(".");
-      final Path projectRootDir = builder.rootDir;
-
-      try {
-        if (!isQuiet(builder) && !Files.isSameFile(currentDir, projectRootDir)) {
-          log.warn(
-              "The directory where kGenProg is running is different from the root directory of the given target project.");
-          log.warn(
-              "If the target project include test cases with file I/O, such test cases won't run correctly.");
-          log.warn(
-              "We recommend that you run kGenProg with the root directory of the target project as the current directory.");
-        }
-      } catch (final IOException e) {
-        throw new IllegalArgumentException("directory " + projectRootDir + " is not accessible");
-      }
-    }
-
-    private static void validateOutDir(final Builder builder) {
-
-      if (Files.notExists(builder.outDir)) {
-        return;
-      }
-
-      try {
-        final List<Path> subFiles = Files.walk(builder.outDir, FileVisitOption.FOLLOW_LINKS)
-            .filter(e -> !e.equals(builder.outDir))
-            .collect(Collectors.toList());
-
-        if (subFiles.isEmpty() && !builder.isForce) {
-          final String outDirName = builder.outDir
-              .toString();
-          log.warn("Cannot write patches, because directory {} is not empty.", outDirName);
-          log.warn("If you want patches, please run with -f or empty {}", outDirName);
-        }
-      } catch (final IOException e) {
-        throw new IllegalArgumentException("directory " + builder.outDir + " is not accessible");
-      }
-    }
-
-    private static boolean isQuiet(final Builder builder) {
-      return builder.logLevel.equals(Level.ERROR);
-    }
-
-    private static boolean needsParseConfigFile(final String[] args) {
-      return args.length == 0 || Arrays.asList(args)
-          .contains("--config");
     }
 
     private void parseConfigFile() throws InvalidValueException, NoSuchFileException {
@@ -789,8 +811,19 @@ public class Configuration {
 
     @Option(name = "--fault-localization", usage = "Specifies technique of fault localization.")
     private void setFaultLocalizationFromCmdLineParser(
-        final FaultLocalization.Technique faultLocalization) {
-      this.faultLocalization = faultLocalization;
+        final String faultLocalizationName) {
+      this.faultLocalizationName = faultLocalizationName;
+    }
+
+    @Option(name = "--candidate-selection", usage = "Specifies technique of candidate selection")
+    private void setCandidateSelectionNameFromCmdLineParser(final String candidateSelectionName) {
+      this.candidateSelectionName = candidateSelectionName;
+    }
+
+    @Option(name = "--mutation", usage = "Specifies technique of mutation.")
+    private void setMutationNameFromCmdLineParser(
+        final String mutationName) {
+      this.mutationName = mutationName;
     }
 
     @Option(name = "--crossover-type", usage = "Specifies crossover type.")
@@ -914,26 +947,6 @@ public class Configuration {
 
       @Override
       public String convertFromField(final Scope.Type value) {
-        if (value == null) {
-          return null;
-        }
-        return value.toString();
-      }
-    }
-
-    private static class FaultLocalizationTechniqueToString implements
-        Converter<FaultLocalization.Technique, String> {
-
-      @Override
-      public Technique convertToField(final String value) {
-        if (value == null) {
-          return null;
-        }
-        return Technique.valueOf(value);
-      }
-
-      @Override
-      public String convertFromField(final Technique value) {
         if (value == null) {
           return null;
         }

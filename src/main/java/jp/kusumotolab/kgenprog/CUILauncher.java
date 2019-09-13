@@ -5,15 +5,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
 import jp.kusumotolab.kgenprog.fl.FaultLocalization;
+import jp.kusumotolab.kgenprog.ga.Context;
+import jp.kusumotolab.kgenprog.ga.Context.CandidateSelectionContext;
+import jp.kusumotolab.kgenprog.ga.Context.FaultLocalizationContext;
+import jp.kusumotolab.kgenprog.ga.Context.MutationContext;
+import jp.kusumotolab.kgenprog.ga.Contexts;
 import jp.kusumotolab.kgenprog.ga.codegeneration.DefaultSourceCodeGeneration;
 import jp.kusumotolab.kgenprog.ga.codegeneration.SourceCodeGeneration;
 import jp.kusumotolab.kgenprog.ga.crossover.Crossover;
 import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy;
 import jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy;
 import jp.kusumotolab.kgenprog.ga.mutation.Mutation;
-import jp.kusumotolab.kgenprog.ga.mutation.SimpleMutation;
-import jp.kusumotolab.kgenprog.ga.mutation.selection.RouletteStatementSelection;
-import jp.kusumotolab.kgenprog.ga.mutation.selection.StatementSelection;
+import jp.kusumotolab.kgenprog.ga.mutation.selection.CandidateSelection;
 import jp.kusumotolab.kgenprog.ga.selection.DefaultVariantSelection;
 import jp.kusumotolab.kgenprog.ga.selection.VariantSelection;
 import jp.kusumotolab.kgenprog.ga.validation.DefaultCodeValidation;
@@ -37,13 +40,25 @@ public class CUILauncher {
   public void launch(final Configuration config) {
     setLogLevel(config.getLogLevel());
 
-    final FaultLocalization faultLocalization = config.getFaultLocalization()
-        .initialize();
+    final Annotations annotations = new Annotations();
+    annotations.initialize();
+
     final Random random = new Random(config.getRandomSeed());
-    final StatementSelection rouletteStatementSelection =
-        new RouletteStatementSelection(random);
-    final Mutation mutation = new SimpleMutation(config.getMutationGeneratingCount(), random,
-        rouletteStatementSelection, config.getScope(), config.getNeedHistoricalElement());
+    final Context context = new Context(random, config, annotations);
+
+    // FLの生成
+    final FaultLocalizationContext flContext = context.faultLocalization();
+    final FaultLocalization faultLocalization = Contexts.resolve(flContext);
+
+    // CandidateSelectionの生成
+    final CandidateSelectionContext candidateSelectionContext = flContext.candidateSelection(
+        faultLocalization);
+    final CandidateSelection candidateSelection = Contexts.resolve(candidateSelectionContext);
+
+    // Mutationの生成
+    final MutationContext mutationContext = candidateSelectionContext.mutation(candidateSelection);
+    final Mutation mutation = Contexts.resolve(mutationContext);
+
     final FirstVariantSelectionStrategy firstVariantSelectionStrategy =
         config.getFirstVariantSelectionStrategy()
             .initialize(random);
@@ -54,6 +69,7 @@ public class CUILauncher {
         .initialize(random, firstVariantSelectionStrategy,
             secondVariantSelectionStrategy, config.getCrossoverGeneratingCount(),
             config.getNeedHistoricalElement());
+
     final SourceCodeGeneration sourceCodeGeneration = new DefaultSourceCodeGeneration();
     final SourceCodeValidation sourceCodeValidation = new DefaultCodeValidation();
     final VariantSelection variantSelection = new DefaultVariantSelection(config.getHeadcount(),

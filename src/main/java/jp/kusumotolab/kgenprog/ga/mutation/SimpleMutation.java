@@ -4,6 +4,7 @@ import java.util.Random;
 import org.eclipse.jdt.core.dom.ASTNode;
 import jp.kusumotolab.kgenprog.Kgp;
 import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.MutationContext;
 import jp.kusumotolab.kgenprog.ga.mutation.Scope.Type;
 import jp.kusumotolab.kgenprog.ga.mutation.selection.CandidateSelection;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
@@ -26,7 +27,18 @@ public class SimpleMutation extends Mutation {
   protected final Type type;
 
   /**
-   * コンストラクタ
+   * コンストラクタ(Reflection用)
+   *
+   * @param mutationContext Mutationを生成するまでの過程で生成されたオブジェクトの情報
+   */
+  public SimpleMutation(final MutationContext mutationContext) {
+    super(mutationContext);
+    this.type = mutationContext.getConfig()
+        .getScope();
+  }
+
+  /**
+   * コンストラクタ (テスト用)
    *
    * @param mutationGeneratingCount 各世代で生成する個体数
    * @param random 乱数生成器

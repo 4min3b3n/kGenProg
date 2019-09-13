@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.FaultLocalizationContext;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
 import jp.kusumotolab.kgenprog.project.ASTLocations;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
@@ -20,7 +23,16 @@ import jp.kusumotolab.kgenprog.project.test.TestResults;
  *  {@code nf}:該当する文を実行せずに，通過しなかったテストの個数<br>
  *  {@code ep}:該当する文を実行し，通過したテストの個数
  */
-public class Ochiai implements FaultLocalization {
+@Kgp(type = StrategyType.FaultLocalization, name = "Ochiai")
+public class Ochiai extends FaultLocalization {
+
+  /**
+   * コンストラクタ
+   * @param context FLを生成するまでの過程で生成されたオブジェクトの情報
+   */
+  public Ochiai(final FaultLocalizationContext context) {
+    super(context);
+  }
 
   /**
    * 疑惑値を計算する.

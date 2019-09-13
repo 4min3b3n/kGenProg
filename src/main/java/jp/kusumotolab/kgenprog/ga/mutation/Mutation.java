@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
+import jp.kusumotolab.kgenprog.Configuration;
 import jp.kusumotolab.kgenprog.fl.Suspiciousness;
+import jp.kusumotolab.kgenprog.ga.Context.MutationContext;
 import jp.kusumotolab.kgenprog.ga.Roulette;
 import jp.kusumotolab.kgenprog.ga.mutation.selection.CandidateSelection;
 import jp.kusumotolab.kgenprog.ga.validation.Fitness;
@@ -28,6 +30,26 @@ public abstract class Mutation {
   protected final int mutationGeneratingCount;
   protected final CandidateSelection candidateSelection;
   private final boolean needHistoricalElement;
+
+  /**
+   * コンストラクタ(Reflection用)
+   *
+   * @param mutationContext Mutationを生成するまでの過程で生成されたオブジェクトの情報
+   */
+  public Mutation(final MutationContext mutationContext) {
+    this(mutationContext.getConfig(), mutationContext);
+  }
+
+  /**
+   * コンストラクタ(Reflection用)
+   *
+   * @param config 設定に関するオブジェクト
+   * @param mutationContext Mutationを生成するまでの過程で生成されたオブジェクトの情報
+   */
+  public Mutation(final Configuration config, final MutationContext mutationContext) {
+    this(config.getMutationGeneratingCount(), mutationContext.getRandom(),
+        mutationContext.getCandidateSelection(), config.getNeedHistoricalElement());
+  }
 
   /**
    * コンストラクタ

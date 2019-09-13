@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.ASTNode;
 import com.google.common.collect.Lists;
 import jp.kusumotolab.kgenprog.Kgp;
 import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.MutationContext;
 import jp.kusumotolab.kgenprog.ga.Roulette;
 import jp.kusumotolab.kgenprog.ga.mutation.heuristic.DeleteOperationGenerator;
 import jp.kusumotolab.kgenprog.ga.mutation.heuristic.InsertAfterOperationGenerator;
@@ -25,7 +26,7 @@ import jp.kusumotolab.kgenprog.project.jdt.JDTASTLocation;
  * ヒューリティクスを適用してビルドサクセスの数を増やす Mutation
  * 現状，修正対象の行でアクセスできる変数名に書き換えて変異処理を行う
  */
-@Kgp(type = StrategyType.Mutation, name = "HeuristicMutation", description = "The mutation is based on some heuristic approaches.")
+@Kgp(type = StrategyType.Mutation, name = "Heuristic", description = "The mutation is based on some heuristic approaches.")
 public class HeuristicMutation extends Mutation {
 
   protected final Scope.Type scopeType;
@@ -33,7 +34,23 @@ public class HeuristicMutation extends Mutation {
   private final List<OperationGenerator> operationGenerators;
 
   /**
-   * コンストラクタ
+   * コンストラクタ(Reflection用)
+   *
+   * @param mutationContext Mutationを生成するまでの過程で生成されたオブジェクトの情報
+   */
+  public HeuristicMutation(final MutationContext mutationContext) {
+    super(mutationContext);
+    this.scopeType = mutationContext.getConfig().getScope();
+    this.operationGenerators = Lists.newArrayList(
+        new DeleteOperationGenerator(1.0d),
+        new InsertBeforeOperationGenerator(0.5d),
+        new InsertAfterOperationGenerator(0.5d),
+        new ReplaceOperationGenerator(1.0d)
+    );
+  }
+
+  /**
+   * コンストラクタ(テスト用)
    *
    * @param mutationGeneratingCount 各世代で生成する Variant の数
    * @param random 乱数生成器

@@ -2,6 +2,9 @@ package jp.kusumotolab.kgenprog.fl;
 
 import java.util.ArrayList;
 import java.util.List;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.FaultLocalizationContext;
 import jp.kusumotolab.kgenprog.project.ASTLocation;
 import jp.kusumotolab.kgenprog.project.ASTLocations;
 import jp.kusumotolab.kgenprog.project.GeneratedAST;
@@ -18,7 +21,16 @@ import jp.kusumotolab.kgenprog.project.test.TestResults;
  *  {@code ep}:該当する文を実行し，通過したテストの個数<br>
  *  {@code np}:該当する文を実行せずに，通過したテストの個数
  */
-public class Ample implements FaultLocalization {
+@Kgp(type = StrategyType.FaultLocalization, name = "Ample")
+public class Ample extends FaultLocalization {
+
+  /**
+   * コンストラクタ
+   * @param context FLを生成するまでの過程で生成されたオブジェクトの情報
+   */
+  public Ample(final FaultLocalizationContext context) {
+    super(context);
+  }
 
   /**
    * 疑惑値を計算する.

@@ -12,6 +12,9 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.Statement;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.CandidateSelectionContext;
 import jp.kusumotolab.kgenprog.ga.Roulette;
 import jp.kusumotolab.kgenprog.ga.mutation.Query;
 import jp.kusumotolab.kgenprog.ga.mutation.Scope;
@@ -25,6 +28,7 @@ import jp.kusumotolab.kgenprog.project.jdt.GeneratedJDTAST;
  *
  * @see StatementSelection
  */
+@Kgp(type = StrategyType.CandidateSelection, name = "Roulette")
 public class RouletteStatementSelection extends StatementSelection {
 
   private final Random random;
@@ -37,10 +41,11 @@ public class RouletteStatementSelection extends StatementSelection {
   /**
    * コンストラクタ
    *
-   * @param random 乱数生成器
+   * @param context CandidateSelectionを生成するまでの過程で生成されたオブジェクトの情報
    */
-  public RouletteStatementSelection(final Random random) {
-    this.random = random;
+  public RouletteStatementSelection(final CandidateSelectionContext context) {
+    super(context);
+    this.random = context.getRandom();
   }
 
   /**
