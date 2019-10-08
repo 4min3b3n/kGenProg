@@ -73,7 +73,7 @@ public class TarantulaTest {
    *  疑惑値のリストが空になることを期待する.
    */
   @Test
-  public void testForFailedProject() throws IOException {
+  public void testForFailedProject() {
     final Path rootPath = Paths.get("example/BuildFailure01");
     final TargetProject targetProject = TargetProjectFactory.create(rootPath);
     final Configuration config = new Configuration.Builder(targetProject).build();

@@ -21,14 +21,19 @@ import jp.kusumotolab.kgenprog.project.test.TestResults;
  *  {@code ep}:該当する文を実行し，通過したテストの個数
  */
 @Kgp(type = StrategyType.FaultLocalization, name = "Zolter")
-public class Zoltar extends FaultLocalization {
+public class Zoltar implements FaultLocalization {
 
   /**
    * コンストラクタ
    * @param context FLを生成するまでの過程で生成されたオブジェクトの情報
    */
   public Zoltar(final FaultLocalizationContext context) {
-    super(context);
+  }
+
+  /**
+   * コンストラクタ
+   */
+  public Zoltar() {
   }
 
   /**

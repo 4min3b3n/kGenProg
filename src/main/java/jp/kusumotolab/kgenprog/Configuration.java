@@ -605,18 +605,18 @@ public class Configuration {
       return this;
     }
 
-    public Builder setCrossoverType(final String crossoverName) {
+    public Builder setCrossoverName(final String crossoverName) {
       this.crossoverName = crossoverName;
       return this;
     }
 
-    public Builder setFirstVariantSelectionStrategy(
+    public Builder setFirstVariantSelectionStrategyName(
         final String firstVariantSelectionStrategyName) {
       this.firstVariantSelectionStrategyName = firstVariantSelectionStrategyName;
       return this;
     }
 
-    public Builder setSecondVariantSelectionStrategy(
+    public Builder setSecondVariantSelectionStrategyName(
         final String secondVariantSelectionStrategyName) {
       this.secondVariantSelectionStrategyName = secondVariantSelectionStrategyName;
       return this;

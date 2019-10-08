@@ -13,27 +13,34 @@ import jp.kusumotolab.kgenprog.project.ProductSourcePath;
 import jp.kusumotolab.kgenprog.project.test.TestResults;
 
 /**
- *  FL戦略の一つ(Ample).
- *  <br>
- *  {@code value = Math.abs(ef / (ef + nf) - ep / (ep + np))}<br>
- *  {@code ef}:該当する文を実行し，通過しなかったテストの個数<br>
- *  {@code nf}:該当する文を実行せずに，通過しなかったテストの個数<br>
- *  {@code ep}:該当する文を実行し，通過したテストの個数<br>
- *  {@code np}:該当する文を実行せずに，通過したテストの個数
+ * FL戦略の一つ(Ample).
+ * <br>
+ * {@code value = Math.abs(ef / (ef + nf) - ep / (ep + np))}<br>
+ * {@code ef}:該当する文を実行し，通過しなかったテストの個数<br>
+ * {@code nf}:該当する文を実行せずに，通過しなかったテストの個数<br>
+ * {@code ep}:該当する文を実行し，通過したテストの個数<br>
+ * {@code np}:該当する文を実行せずに，通過したテストの個数
  */
 @Kgp(type = StrategyType.FaultLocalization, name = "Ample")
-public class Ample extends FaultLocalization {
+public class Ample implements FaultLocalization {
 
   /**
    * コンストラクタ
+   *
    * @param context FLを生成するまでの過程で生成されたオブジェクトの情報
    */
   public Ample(final FaultLocalizationContext context) {
-    super(context);
+  }
+
+  /**
+   * コンストラクタ
+   */
+  public Ample() {
   }
 
   /**
    * 疑惑値を計算する.
+   *
    * @param generatedSourceCode 自動バグ限局の対象ソースコード
    * @param testResults テストの実行結果
    * @return suspiciousnesses 疑惑値
@@ -57,7 +64,7 @@ public class Ample extends FaultLocalization {
           final long nf = testResults.getNumberOfFailedTestsNotExecutingTheStatement(path, l);
           final long ep = testResults.getNumberOfPassedTestsExecutingTheStatement(path, l);
           final long np = testResults.getNumberOfPassedTestsNotExecutingTheStatement(path, l);
-          final double value = Math.abs(ef / (double)(ef + nf) - ep / (double)(ep + np));
+          final double value = Math.abs(ef / (double) (ef + nf) - ep / (double) (ep + np));
           if (0d < value) {
             final Suspiciousness s = new Suspiciousness(l, value);
             suspiciousnesses.add(s);

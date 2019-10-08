@@ -22,14 +22,19 @@ import jp.kusumotolab.kgenprog.project.test.TestResults;
  *  {@code np}:該当する文を実行せずに，通過したテストの個数
  */
 @Kgp(type = StrategyType.FaultLocalization, name = "Tarantula")
-public class Tarantula extends FaultLocalization {
+public class Tarantula implements FaultLocalization {
 
   /**
    * コンストラクタ
    * @param context FLを生成するまでの過程で生成されたオブジェクトの情報
    */
   public Tarantula(final FaultLocalizationContext context) {
-    super(context);
+  }
+
+  /**
+   * コンストラクタ
+   */
+  public Tarantula() {
   }
 
   /**

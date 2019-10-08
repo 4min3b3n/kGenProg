@@ -11,15 +11,10 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
-
-import jp.kusumotolab.kgenprog.ga.crossover.Crossover;
 import org.junit.Test;
 import com.google.common.collect.ImmutableList;
 import ch.qos.logback.classic.Level;
 import jp.kusumotolab.kgenprog.Configuration.Builder;
-import jp.kusumotolab.kgenprog.fl.FaultLocalization;
-import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy;
-import jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy;
 import jp.kusumotolab.kgenprog.ga.mutation.Scope;
 import jp.kusumotolab.kgenprog.project.factory.JUnitLibraryResolver.JUnitVersion;
 import jp.kusumotolab.kgenprog.project.factory.TargetProject;
@@ -58,12 +53,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -95,12 +91,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -132,12 +129,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -171,12 +169,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -209,12 +208,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -247,12 +247,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -286,12 +287,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -323,12 +325,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -361,12 +364,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -399,12 +403,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -437,12 +442,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -474,12 +480,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -512,12 +519,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, classPaths, JUnitVersion.JUNIT4);
@@ -550,12 +558,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(randomSeed);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -588,12 +597,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(scope);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -627,12 +637,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(needNotOutput);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -641,9 +652,9 @@ public class ConfigurationBuilderTest {
 
   @Test
   public void testBuildWithFaultLocalization() {
-    final FaultLocalization.Technique faultLocalization = FaultLocalization.Technique.Ochiai;
+    final String ochiai = "Ochiai";
     final Builder builder = new Builder(rootDir, productPaths, testPaths).setFaultLocalization(
-        faultLocalization);
+        ochiai);
     final Configuration config = builder.build();
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -666,12 +677,12 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(faultLocalization);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(ochiai);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -680,9 +691,9 @@ public class ConfigurationBuilderTest {
 
   @Test
   public void testBuildWithCrossoverType() {
-    final Crossover.Type crossoverType = Crossover.Type.Random;
-    final Builder builder = new Builder(rootDir, productPaths, testPaths).setCrossoverType(
-        crossoverType);
+    final String crossoverName = "Random";
+    final Builder builder = new Builder(rootDir, productPaths, testPaths).setCrossoverName(
+        crossoverName);
     final Configuration config = builder.build();
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -705,12 +716,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(crossoverType);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(crossoverName);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -719,10 +731,9 @@ public class ConfigurationBuilderTest {
 
   @Test
   public void testBuildWithFirstVariantSelectionStrategy() {
-    final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategy =
-        FirstVariantSelectionStrategy.Strategy.Random;
+    final String firstVariantSelectionStrategyName = "Random";
     final Builder builder = new Builder(rootDir, productPaths, testPaths)
-        .setFirstVariantSelectionStrategy(firstVariantSelectionStrategy);
+        .setFirstVariantSelectionStrategyName(firstVariantSelectionStrategyName);
     final Configuration config = builder.build();
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -745,9 +756,11 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(firstVariantSelectionStrategy);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        firstVariantSelectionStrategyName);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -756,10 +769,9 @@ public class ConfigurationBuilderTest {
 
   @Test
   public void testBuildWithSecondVariantSelectionStrategy() {
-    final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategy =
-        SecondVariantSelectionStrategy.Strategy.Random;
+    final String secondVariantSelectionStrategyName = "Random";
     final Builder builder = new Builder(rootDir, productPaths, testPaths)
-        .setSecondVariantSelectionStrategy(secondVariantSelectionStrategy);
+        .setSecondVariantSelectionStrategyName(secondVariantSelectionStrategyName);
     final Configuration config = builder.build();
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -782,12 +794,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        secondVariantSelectionStrategy);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        secondVariantSelectionStrategyName);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -820,12 +833,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -860,12 +874,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -899,12 +914,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -939,12 +955,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -979,12 +996,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1019,12 +1037,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1059,12 +1078,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1099,12 +1119,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1138,12 +1159,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1177,12 +1199,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1216,12 +1239,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1256,12 +1280,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1296,12 +1321,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(randomSeed);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1336,12 +1362,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(scope);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, ImmutableList.of(productPath),
@@ -1441,12 +1468,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isTrue();
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir, productPaths,
         testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);
@@ -1523,12 +1551,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1563,12 +1592,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1604,12 +1634,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1645,12 +1676,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1687,12 +1719,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1729,12 +1762,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1770,12 +1804,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1811,12 +1846,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1852,12 +1888,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1894,12 +1931,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -1933,12 +1971,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final Path classPath = rootDir.resolve("lib");
     final TargetProject expectedProject =
@@ -1976,12 +2015,13 @@ public class ConfigurationBuilderTest {
 
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2018,12 +2058,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getScope()).isEqualTo(scope);
 
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2057,12 +2098,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final String executionTest1 = "example.FooTest";
     final String executionTest2 = "example.BarTest";
@@ -2099,12 +2141,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getLogLevel()).isEqualTo(Configuration.DEFAULT_LOG_LEVEL);
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final boolean needNotOutput = true;
     assertThat(config.needNotOutput()).isEqualTo(needNotOutput);
@@ -2144,12 +2187,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2186,12 +2230,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2232,12 +2277,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2278,12 +2324,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2323,12 +2370,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2368,12 +2416,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2414,12 +2463,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2461,12 +2511,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2506,12 +2557,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2550,12 +2602,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2591,12 +2644,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final Path classPathFromConfigFile = rootDir.resolve("lib");
     final TargetProject projectWithClassPathFromConfigFile =
@@ -2642,12 +2696,13 @@ public class ConfigurationBuilderTest {
 
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2687,12 +2742,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getScope()).isEqualTo(scopeFromCmdLine);
 
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2727,12 +2783,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final String executionTestFromConfigFile1 = "example.FooTest";
     final String executionTestFromConfigFile2 = "example.BarTest";
@@ -2775,12 +2832,13 @@ public class ConfigurationBuilderTest {
     final boolean needNotOutputFromConfigFile = false;
     assertThat(config.needNotOutput()).isNotEqualTo(needNotOutputFromConfigFile);
     assertThat(config.needNotOutput()).isTrue();
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2791,9 +2849,9 @@ public class ConfigurationBuilderTest {
   @Test
   public void testBuildFromConfigFileWithFaultLocalizationOverwrittenFromCmdLineArgs() {
     final Path configPath = rootDir.resolve("withFaultLocalization.toml");
-    final FaultLocalization.Technique faultLocalizationFromCmdLine = FaultLocalization.Technique.Ochiai;
+    final String faultLocalizationFromCmdLine = "Ochiai";
     final String[] args = {"--config", configPath.toString(), "--fault-localization",
-        faultLocalizationFromCmdLine.toString()};
+        faultLocalizationFromCmdLine};
     final Configuration config = Configuration.Builder.buildFromCmdLineArgs(args);
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -2817,14 +2875,14 @@ public class ConfigurationBuilderTest {
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
 
-    final FaultLocalization.Technique faultLocalizationFromConfigFile = FaultLocalization.Technique.Ample;
-    assertThat(config.getFaultLocalization()).isNotEqualTo(faultLocalizationFromConfigFile);
-    assertThat(config.getFaultLocalization()).isEqualTo(faultLocalizationFromCmdLine);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    final String faultLocalizationFromConfigFile = "Ample";
+    assertThat(config.getFaultLocalizationName()).isNotEqualTo(faultLocalizationFromConfigFile);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(faultLocalizationFromCmdLine);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2835,9 +2893,9 @@ public class ConfigurationBuilderTest {
   @Test
   public void testBuildFromConfigFileWithCrossoverTypeOverwrittenFromCmdLineArgs() {
     final Path configPath = rootDir.resolve("withCrossoverType.toml");
-    final Crossover.Type crossoverTypeFromCmdLine = Crossover.Type.Random;
+    final String crossoverTypeFromCmdLine = "Random";
     final String[] args = {"--config", configPath.toString(), "--crossover-type",
-        crossoverTypeFromCmdLine.toString()};
+        crossoverTypeFromCmdLine};
     final Configuration config = Configuration.Builder.buildFromCmdLineArgs(args);
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -2860,15 +2918,16 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
 
-    final Crossover.Type crossoverTypeFromConfigFile = Crossover.Type.SinglePoint;
-    assertThat(config.getCrossoverType()).isNotEqualTo(crossoverTypeFromConfigFile);
-    assertThat(config.getCrossoverType()).isEqualTo(crossoverTypeFromCmdLine);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    final String crossoverTypeFromConfigFile = "SinglePoint";
+    assertThat(config.getCrossoverName()).isNotEqualTo(crossoverTypeFromConfigFile);
+    assertThat(config.getCrossoverName()).isEqualTo(crossoverTypeFromCmdLine);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2879,10 +2938,9 @@ public class ConfigurationBuilderTest {
   @Test
   public void testBuildFromConfigFileWithFirstVariantSelectionStrategyOverwrittenFromCmdLineArgs() {
     final Path configPath = rootDir.resolve("withFirstVariantSelectionStrategy.toml");
-    final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategyFromCmdLine =
-        FirstVariantSelectionStrategy.Strategy.Elite;
+    final String firstVariantSelectionStrategyFromCmdLine = "Elite";
     final String[] args = {"--config", configPath.toString(), "--crossover-first-variant",
-        firstVariantSelectionStrategyFromCmdLine.toString()};
+        firstVariantSelectionStrategyFromCmdLine};
     final Configuration config = Configuration.Builder.buildFromCmdLineArgs(args);
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -2905,17 +2963,17 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
 
-    final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategyFromConfigFile =
-        FirstVariantSelectionStrategy.Strategy.Random;
-    assertThat(config.getFirstVariantSelectionStrategy()).isNotEqualTo(
+    final String firstVariantSelectionStrategyFromConfigFile = "Random";
+    assertThat(config.getFirstVariantSelectionStrategyName()).isNotEqualTo(
         firstVariantSelectionStrategyFromConfigFile);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
         firstVariantSelectionStrategyFromCmdLine);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject =
         TargetProjectFactory.create(rootDir, productPaths, testPaths, Collections.emptyList(),
@@ -2926,10 +2984,9 @@ public class ConfigurationBuilderTest {
   @Test
   public void testBuildFromConfigFileWithSecondVariantSelectionStrategyOverwrittenFromCmdLineArgs() {
     final Path configPath = rootDir.resolve("withSecondVariantSelectionStrategy.toml");
-    final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategyFromCmdLine =
-        SecondVariantSelectionStrategy.Strategy.Elite;
+    final String secondVariantSelectionStrategyFromCmdLine = "Elite";
     final String[] args = {"--config", configPath.toString(), "--crossover-second-variant",
-        secondVariantSelectionStrategyFromCmdLine.toString()};
+        secondVariantSelectionStrategyFromCmdLine};
     final Configuration config = Configuration.Builder.buildFromCmdLineArgs(args);
 
     assertThat(config.getOutDir()).isEqualTo(Configuration.DEFAULT_OUT_DIR);
@@ -2952,16 +3009,16 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
 
-    final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategyFromConfigFile =
-        SecondVariantSelectionStrategy.Strategy.Random;
-    assertThat(config.getSecondVariantSelectionStrategy()).isNotEqualTo(
+    final String secondVariantSelectionStrategyFromConfigFile = "Random";
+    assertThat(config.getSecondVariantSelectionStrategyName()).isNotEqualTo(
         secondVariantSelectionStrategyFromConfigFile);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
         secondVariantSelectionStrategyFromCmdLine);
 
     final TargetProject expectedProject =
@@ -3005,12 +3062,13 @@ public class ConfigurationBuilderTest {
     assertThat(config.getRandomSeed()).isEqualTo(Configuration.DEFAULT_RANDOM_SEED);
     assertThat(config.getScope()).isEqualTo(Configuration.DEFAULT_SCOPE);
     assertThat(config.needNotOutput()).isEqualTo(Configuration.DEFAULT_NEED_NOT_OUTPUT);
-    assertThat(config.getFaultLocalization()).isEqualTo(Configuration.DEFAULT_FAULT_LOCALIZATION);
-    assertThat(config.getCrossoverType()).isEqualTo(Configuration.DEFAULT_CROSSOVER_TYPE);
-    assertThat(config.getFirstVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY);
-    assertThat(config.getSecondVariantSelectionStrategy()).isEqualTo(
-        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY);
+    assertThat(config.getFaultLocalizationName()).isEqualTo(
+        Configuration.DEFAULT_FAULT_LOCALIZE_NAME);
+    assertThat(config.getCrossoverName()).isEqualTo(Configuration.DEFAULT_CROSSOVER_NAME);
+    assertThat(config.getFirstVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME);
+    assertThat(config.getSecondVariantSelectionStrategyName()).isEqualTo(
+        Configuration.DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME);
 
     final TargetProject expectedProject = TargetProjectFactory.create(rootDir,
         ImmutableList.of(link), testPaths, Collections.emptyList(), JUnitVersion.JUNIT4);

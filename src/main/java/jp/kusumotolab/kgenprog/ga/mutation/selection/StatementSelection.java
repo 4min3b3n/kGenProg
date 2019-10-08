@@ -1,7 +1,6 @@
 package jp.kusumotolab.kgenprog.ga.mutation.selection;
 
 import org.eclipse.jdt.core.dom.Statement;
-import jp.kusumotolab.kgenprog.ga.Context.CandidateSelectionContext;
 import jp.kusumotolab.kgenprog.ga.mutation.Query;
 
 /**
@@ -9,15 +8,7 @@ import jp.kusumotolab.kgenprog.ga.mutation.Query;
  *
  * @see CandidateSelection
  */
-public abstract class StatementSelection extends CandidateSelection {
-
-  /**
-   * コンストラクタ
-   * @param context CandidateSelectionを生成するまでの過程で生成されたオブジェクトの情報
-   */
-  public StatementSelection(final CandidateSelectionContext context) {
-    super(context);
-  }
+public interface StatementSelection extends CandidateSelection {
 
   /**
    * 再利用するステートメントを取り出す
@@ -25,5 +16,5 @@ public abstract class StatementSelection extends CandidateSelection {
    * @param query 再利用する候補のクエリ
    * @return 再利用するステートメント
    */
-  public abstract Statement exec(final Query query);
+  Statement exec(final Query query);
 }

@@ -29,7 +29,7 @@ import jp.kusumotolab.kgenprog.project.jdt.GeneratedJDTAST;
  * @see StatementSelection
  */
 @Kgp(type = StrategyType.CandidateSelection, name = "Roulette")
-public class RouletteStatementSelection extends StatementSelection {
+public class RouletteStatementSelection implements StatementSelection {
 
   private final Random random;
   private Roulette<ReuseCandidate<Statement>> projectRoulette;
@@ -39,13 +39,21 @@ public class RouletteStatementSelection extends StatementSelection {
   private final Map<FullyQualifiedName, Roulette<ReuseCandidate<Statement>>> fqnRouletteMap = new HashMap<>();
 
   /**
-   * コンストラクタ
+   * コンストラクタ (Reflection用)
    *
    * @param context CandidateSelectionを生成するまでの過程で生成されたオブジェクトの情報
    */
   public RouletteStatementSelection(final CandidateSelectionContext context) {
-    super(context);
     this.random = context.getRandom();
+  }
+
+  /**
+   * コンストラクタ
+   *
+   * @param random 乱数生成器
+   */
+  public RouletteStatementSelection(final Random random) {
+    this.random = random;
   }
 
   /**

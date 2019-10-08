@@ -33,7 +33,7 @@ import jp.kusumotolab.kgenprog.project.jdt.GeneratedJDTAST;
  * 型を考慮してStatementを選ぶ．
  */
 @Kgp(type = StrategyType.CandidateSelection, name = "Heuristic")
-public class HeuristicStatementSelection extends StatementSelection {
+public class HeuristicStatementSelection implements StatementSelection {
 
   private final AccessibleVariableSearcher accessibleVariableSearcher = new AccessibleVariableSearcher();
   private final ASTAnalyzer astAnalyzer = new ASTAnalyzer();
@@ -44,13 +44,20 @@ public class HeuristicStatementSelection extends StatementSelection {
   private Statement emptyStatement; // 検索結果が空だった場合，emptyStatementを返す
 
   /**
-   * コンストラクタ
+   * コンストラクタ (Reflection用)
    *
    * @param context CandidateSelectionを生成するまでの過程で生成されたオブジェクトの情報
    */
   public HeuristicStatementSelection(final CandidateSelectionContext context) {
-    super(context);
     this.random = context.getRandom();
+  }
+
+  /**
+   * コンストラクタ
+   * @param random 乱数生成器
+   */
+  public HeuristicStatementSelection(final Random random) {
+    this.random = random;
   }
 
   @Override

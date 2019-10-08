@@ -21,14 +21,19 @@ import jp.kusumotolab.kgenprog.project.test.TestResults;
  *  {@code ep}:該当する文を実行し，通過したテストの個数
  */
 @Kgp(type = StrategyType.FaultLocalization, name = "Jaccard")
-public class Jaccard extends FaultLocalization {
+public class Jaccard implements FaultLocalization {
 
   /**
    * コンストラクタ
    * @param context FLを生成するまでの過程で生成されたオブジェクトの情報
    */
   public Jaccard(final FaultLocalizationContext context) {
-    super(context);
+  }
+
+  /**
+   * コンストラクタ
+   */
+  public Jaccard() {
   }
 
   /**
