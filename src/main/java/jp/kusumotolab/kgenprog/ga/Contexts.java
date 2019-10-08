@@ -18,7 +18,8 @@ public class Contexts {
     final Configuration config = context.getConfig();
 
     final List<KgpAnnotatedClass> annotatedClasses = annotations.getAnnotations(strategyType);
-    final KgpAnnotatedClass annotatedClass = extractAnnotatedClass(annotatedClasses, strategyType.extractNameFromConfiguration(config));
+    final KgpAnnotatedClass annotatedClass = extractAnnotatedClass(annotatedClasses,
+        strategyType.extractNameFromConfiguration(config));
 
     final Kgp annotation = annotatedClass.getAnnotation();
     final Class<?> aClass = annotatedClass.getAnnotatedClass();
@@ -34,8 +35,7 @@ public class Contexts {
   }
 
   private static KgpAnnotatedClass extractAnnotatedClass(
-      final List<KgpAnnotatedClass> annotatedClasses,
-      final String name) {
+      final List<KgpAnnotatedClass> annotatedClasses, final String name) {
     final Optional<KgpAnnotatedClass> optionalKgpAnnotatedClass = annotatedClasses.stream()
         .filter(e -> equalName(e, name))
         .findFirst();
