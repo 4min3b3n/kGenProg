@@ -1,26 +1,10 @@
 package jp.kusumotolab.kgenprog;
 
-import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
-import jp.kusumotolab.kgenprog.fl.FaultLocalization;
-import jp.kusumotolab.kgenprog.ga.codegeneration.DefaultSourceCodeGeneration;
-import jp.kusumotolab.kgenprog.ga.codegeneration.SourceCodeGeneration;
-import jp.kusumotolab.kgenprog.ga.crossover.Crossover;
-import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy;
-import jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy;
-import jp.kusumotolab.kgenprog.ga.mutation.Mutation;
-import jp.kusumotolab.kgenprog.ga.mutation.SimpleMutation;
-import jp.kusumotolab.kgenprog.ga.mutation.selection.RouletteStatementSelection;
-import jp.kusumotolab.kgenprog.ga.mutation.selection.StatementSelection;
-import jp.kusumotolab.kgenprog.ga.selection.DefaultVariantSelection;
-import jp.kusumotolab.kgenprog.ga.selection.VariantSelection;
-import jp.kusumotolab.kgenprog.ga.validation.DefaultCodeValidation;
-import jp.kusumotolab.kgenprog.ga.validation.SourceCodeValidation;
-import jp.kusumotolab.kgenprog.output.PatchGenerator;
-import jp.kusumotolab.kgenprog.project.test.LocalTestExecutor;
-import jp.kusumotolab.kgenprog.project.test.TestExecutor;
+import jp.kusumotolab.kgenprog.fl.Ample;
+import jp.kusumotolab.kgenprog.ga.mutation.HeuristicMutation;
 
 public class CUILauncher {
 
@@ -37,33 +21,15 @@ public class CUILauncher {
   public void launch(final Configuration config) {
     setLogLevel(config.getLogLevel());
 
-    final FaultLocalization faultLocalization = config.getFaultLocalization()
-        .initialize();
-    final Random random = new Random(config.getRandomSeed());
-    final StatementSelection rouletteStatementSelection =
-        new RouletteStatementSelection(random);
-    final Mutation mutation = new SimpleMutation(config.getMutationGeneratingCount(), random,
-        rouletteStatementSelection, config.getScope(), config.getNeedHistoricalElement());
-    final FirstVariantSelectionStrategy firstVariantSelectionStrategy =
-        config.getFirstVariantSelectionStrategy()
-            .initialize(random);
-    final SecondVariantSelectionStrategy secondVariantSelectionStrategy =
-        config.getSecondVariantSelectionStrategy()
-            .initialize(random);
-    final Crossover crossover = config.getCrossoverType()
-        .initialize(random, firstVariantSelectionStrategy,
-            secondVariantSelectionStrategy, config.getCrossoverGeneratingCount(),
-            config.getNeedHistoricalElement());
-    final SourceCodeGeneration sourceCodeGeneration = new DefaultSourceCodeGeneration();
-    final SourceCodeValidation sourceCodeValidation = new DefaultCodeValidation();
-    final VariantSelection variantSelection = new DefaultVariantSelection(config.getHeadcount(),
-        random);
-    final TestExecutor testExecutor = new LocalTestExecutor(config);
-    final PatchGenerator patchGenerator = new PatchGenerator();
-
-    final KGenProgMain kGenProgMain =
-        new KGenProgMain(config, faultLocalization, mutation, crossover, sourceCodeGeneration,
-            sourceCodeValidation, variantSelection, testExecutor, patchGenerator);
+    final KGenProgMain kGenProgMain = new KGenProgMainBuilder()
+        .faultLocalization(context -> new Ample())
+        .mutation(context -> {
+          final Configuration configuration = context.getConfig();
+          return new HeuristicMutation(configuration.getMutationGeneratingCount(),
+              context.getRandom(), context.getCandidateSelection(), configuration.getScope(),
+              configuration.getNeedHistoricalElement());
+        })
+        .build(config);
 
     kGenProgMain.run();
   }
