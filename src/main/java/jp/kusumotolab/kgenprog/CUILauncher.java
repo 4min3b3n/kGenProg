@@ -1,5 +1,6 @@
 package jp.kusumotolab.kgenprog;
 
+import java.io.IOException;
 import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,16 +36,16 @@ public class CUILauncher {
       final Configuration config = Configuration.Builder.buildFromCmdLineArgs(args);
       final CUILauncher launcher = new CUILauncher();
       launcher.launch(config);
-    } catch (IllegalArgumentException e) {
+    } catch (final IllegalArgumentException | IOException e) {
       System.exit(1);
     }
   }
 
-  public void launch(final Configuration config) {
+  public void launch(final Configuration config) throws IOException {
     setLogLevel(config.getLogLevel());
 
     final Annotations annotations = new Annotations();
-    annotations.initialize();
+    annotations.initialize(config);
 
     final Random random = new Random(config.getRandomSeed());
     final Context context = new Context(random, config, annotations);

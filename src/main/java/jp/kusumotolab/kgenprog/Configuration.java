@@ -29,9 +29,6 @@ import com.electronwill.nightconfig.core.conversion.SpecNotNull;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import com.google.common.collect.ImmutableList;
 import ch.qos.logback.classic.Level;
-import jp.kusumotolab.kgenprog.ga.crossover.Crossover;
-import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy;
-import jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy;
 import jp.kusumotolab.kgenprog.ga.mutation.Scope;
 import jp.kusumotolab.kgenprog.project.factory.JUnitLibraryResolver.JUnitVersion;
 import jp.kusumotolab.kgenprog.project.factory.TargetProject;
@@ -83,6 +80,7 @@ public class Configuration {
   private final String firstVariantSelectionStrategyName;
   private final String secondVariantSelectionStrategyName;
   private final boolean needHistoricalElement;
+  private final String pluginDir = "./plugin";
   // endregion
 
   // region Constructor
@@ -208,6 +206,10 @@ public class Configuration {
 
   public boolean getNeedHistoricalElement() {
     return needHistoricalElement;
+  }
+
+  public String getPluginDir() {
+    return pluginDir;
   }
 
   @Override
