@@ -5,6 +5,11 @@ import jp.kusumotolab.kgenprog.Annotations;
 import jp.kusumotolab.kgenprog.Configuration;
 import jp.kusumotolab.kgenprog.StrategyType;
 import jp.kusumotolab.kgenprog.fl.FaultLocalization;
+import jp.kusumotolab.kgenprog.ga.crossover.Crossover;
+import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy;
+import jp.kusumotolab.kgenprog.ga.crossover.FirstVariantSelectionStrategy.Strategy;
+import jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy;
+import jp.kusumotolab.kgenprog.ga.mutation.Mutation;
 import jp.kusumotolab.kgenprog.ga.mutation.selection.CandidateSelection;
 
 public class Context {
@@ -42,6 +47,7 @@ public class Context {
   public FaultLocalizationContext faultLocalization() {
     return new FaultLocalizationContext(this);
   }
+
   // ==================================== Subtype of Context ====================================
 
   // For FaultLocalization
@@ -101,9 +107,88 @@ public class Context {
       return candidateSelection;
     }
 
+    public FirstVariantSelectionStrategyContext firstVariantSelectionStrategy(
+        final Mutation mutation) {
+      return new FirstVariantSelectionStrategyContext(this, mutation);
+    }
+
     @Override
     public StrategyType getStrategyType() {
       return StrategyType.Mutation;
+    }
+  }
+
+  // For FirstVariantSelectionStrategy
+  public static class FirstVariantSelectionStrategyContext extends MutationContext {
+
+    private final Mutation mutation;
+
+    public FirstVariantSelectionStrategyContext(final MutationContext context,
+        final Mutation mutation) {
+      super(context, context.getCandidateSelection());
+      this.mutation = mutation;
+    }
+
+    public Mutation getMutation() {
+      return mutation;
+    }
+
+    public SecondVariantSelectionStrategyContext secondVariantSelectionStrategy(
+        final FirstVariantSelectionStrategy firstVariantSelectionStrategy) {
+      return new SecondVariantSelectionStrategyContext(this, firstVariantSelectionStrategy);
+    }
+
+    @Override
+    public StrategyType getStrategyType() {
+      return StrategyType.FirstVariantSelectionStrategy;
+    }
+  }
+
+  // For SecondVariantSelectionStrategy
+  public static class SecondVariantSelectionStrategyContext extends
+      FirstVariantSelectionStrategyContext {
+
+    private final FirstVariantSelectionStrategy firstVariantSelectionStrategy;
+
+    public SecondVariantSelectionStrategyContext(final FirstVariantSelectionStrategyContext context,
+        final FirstVariantSelectionStrategy firstVariantSelectionStrategy) {
+      super(context, context.getMutation());
+      this.firstVariantSelectionStrategy = firstVariantSelectionStrategy;
+    }
+
+    public FirstVariantSelectionStrategy getFirstVariantSelectionStrategy() {
+      return firstVariantSelectionStrategy;
+    }
+
+    public CrossoverContext crossover(
+        final SecondVariantSelectionStrategy secondVariantSelectionStrategy) {
+      return new CrossoverContext(this, secondVariantSelectionStrategy);
+    }
+
+    @Override
+    public StrategyType getStrategyType() {
+      return StrategyType.SecondVariantSelectionStrategy;
+    }
+  }
+
+  // For Crossover
+  public static class CrossoverContext extends SecondVariantSelectionStrategyContext {
+
+    private final SecondVariantSelectionStrategy secondVariantSelectionStrategy;
+
+    public CrossoverContext(final SecondVariantSelectionStrategyContext context, final
+    SecondVariantSelectionStrategy secondVariantSelectionStrategy) {
+      super(context, context.getFirstVariantSelectionStrategy());
+      this.secondVariantSelectionStrategy = secondVariantSelectionStrategy;
+    }
+
+    public SecondVariantSelectionStrategy getSecondVariantSelectionStrategy() {
+      return secondVariantSelectionStrategy;
+    }
+
+    @Override
+    public StrategyType getStrategyType() {
+      return StrategyType.Crossover;
     }
   }
 }

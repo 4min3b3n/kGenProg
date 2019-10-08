@@ -22,9 +22,24 @@ public enum StrategyType {
       return configuration.getCandidateSelectionName();
     }
   },
-  Crossover;
+  FirstVariantSelectionStrategy {
+    @Override
+    public String extractNameFromConfiguration(final Configuration configuration) {
+      return configuration.getFirstVariantSelectionStrategyName();
+    }
+  },
+  SecondVariantSelectionStrategy {
+    @Override
+    public String extractNameFromConfiguration(final Configuration configuration) {
+      return configuration.getSecondVariantSelectionStrategyName();
+    }
+  },
+  Crossover {
+    @Override
+    public String extractNameFromConfiguration(final Configuration configuration) {
+      return configuration.getCrossoverName();
+    }
+  };
 
-  public String extractNameFromConfiguration(final Configuration configuration) {
-    return null;
-  }
+  public abstract String extractNameFromConfiguration(final Configuration configuration);
 }

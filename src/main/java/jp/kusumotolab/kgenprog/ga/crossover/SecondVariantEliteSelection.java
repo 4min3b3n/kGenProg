@@ -2,6 +2,9 @@ package jp.kusumotolab.kgenprog.ga.crossover;
 
 import java.util.Comparator;
 import java.util.List;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.SecondVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 
 /**
@@ -10,7 +13,23 @@ import jp.kusumotolab.kgenprog.ga.variant.Variant;
  * @author higo
  *
  */
+@Kgp(type = StrategyType.SecondVariantSelectionStrategy, name = "Elite")
 public class SecondVariantEliteSelection implements SecondVariantSelectionStrategy {
+
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  public SecondVariantEliteSelection(final SecondVariantSelectionStrategyContext context) {
+    this();
+  }
+
+  /**
+   * コンストラクタ
+   */
+  public SecondVariantEliteSelection() {
+  }
 
   /**
    * 選択を行うメソッド．<br>

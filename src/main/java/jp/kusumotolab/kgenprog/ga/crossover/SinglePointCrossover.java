@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import jp.kusumotolab.kgenprog.Configuration;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.CrossoverContext;
 import jp.kusumotolab.kgenprog.ga.variant.Base;
 import jp.kusumotolab.kgenprog.ga.variant.CrossoverHistoricalElement;
 import jp.kusumotolab.kgenprog.ga.variant.Gene;
@@ -17,10 +21,24 @@ import jp.kusumotolab.kgenprog.ga.variant.VariantStore;
  *
  * @author higo
  */
+@Kgp(type = StrategyType.Crossover, name = "SinglePoint")
 public class SinglePointCrossover extends CrossoverAdaptor {
 
   private final Random random;
   private final boolean needHistoricalElement;
+
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  public SinglePointCrossover(final CrossoverContext context) {
+    super(context);
+    random = context.getRandom();
+
+    final Configuration config = context.getConfig();
+    needHistoricalElement = config.getNeedHistoricalElement();
+  }
 
   /**
    * コンストラクタ．一点交叉に必要な情報を全て引数として渡す必要あり．

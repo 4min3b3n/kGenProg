@@ -7,8 +7,11 @@ import ch.qos.logback.classic.Level;
 import jp.kusumotolab.kgenprog.fl.FaultLocalization;
 import jp.kusumotolab.kgenprog.ga.Context;
 import jp.kusumotolab.kgenprog.ga.Context.CandidateSelectionContext;
+import jp.kusumotolab.kgenprog.ga.Context.CrossoverContext;
 import jp.kusumotolab.kgenprog.ga.Context.FaultLocalizationContext;
+import jp.kusumotolab.kgenprog.ga.Context.FirstVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.Context.MutationContext;
+import jp.kusumotolab.kgenprog.ga.Context.SecondVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.Contexts;
 import jp.kusumotolab.kgenprog.ga.codegeneration.DefaultSourceCodeGeneration;
 import jp.kusumotolab.kgenprog.ga.codegeneration.SourceCodeGeneration;
@@ -59,16 +62,21 @@ public class CUILauncher {
     final MutationContext mutationContext = candidateSelectionContext.mutation(candidateSelection);
     final Mutation mutation = Contexts.resolve(mutationContext);
 
-    final FirstVariantSelectionStrategy firstVariantSelectionStrategy =
-        config.getFirstVariantSelectionStrategy()
-            .initialize(random);
-    final SecondVariantSelectionStrategy secondVariantSelectionStrategy =
-        config.getSecondVariantSelectionStrategy()
-            .initialize(random);
-    final Crossover crossover = config.getCrossoverType()
-        .initialize(random, firstVariantSelectionStrategy,
-            secondVariantSelectionStrategy, config.getCrossoverGeneratingCount(),
-            config.getNeedHistoricalElement());
+    // FirstVariantSelectionStrategyの作成
+    final FirstVariantSelectionStrategyContext firstVariantSelectionStrategyContext = mutationContext.firstVariantSelectionStrategy(
+        mutation);
+    final FirstVariantSelectionStrategy firstVariantSelectionStrategy = Contexts.resolve(
+        firstVariantSelectionStrategyContext);
+
+    // SecondVariantSelectionStrategyの作成
+    final SecondVariantSelectionStrategyContext secondVariantSelectionStrategyContext = firstVariantSelectionStrategyContext.secondVariantSelectionStrategy(
+        firstVariantSelectionStrategy);
+    final SecondVariantSelectionStrategy secondVariantSelectionStrategy = Contexts.resolve(secondVariantSelectionStrategyContext);
+
+    // Crossoverの作成
+    final CrossoverContext crossoverContext = secondVariantSelectionStrategyContext.crossover(
+        secondVariantSelectionStrategy);
+    final Crossover crossover = Contexts.resolve(crossoverContext);
 
     final SourceCodeGeneration sourceCodeGeneration = new DefaultSourceCodeGeneration();
     final SourceCodeValidation sourceCodeValidation = new DefaultCodeValidation();

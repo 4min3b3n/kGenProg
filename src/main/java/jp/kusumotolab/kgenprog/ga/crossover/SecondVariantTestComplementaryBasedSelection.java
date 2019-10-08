@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.SecondVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 import jp.kusumotolab.kgenprog.project.FullyQualifiedName;
 import jp.kusumotolab.kgenprog.project.test.TestResults;
@@ -13,23 +16,36 @@ import jp.kusumotolab.kgenprog.project.test.TestResults;
  * 交叉において，2つ目の親を1つ目の親とのテストの相補性に基づいて選択するアルゴリズムを実装したクラス．<br>
  * 選択の第一基準：1つ目の親が失敗しているテストを多く成功している．<br>
  * 選択の第二基準：1つ目の親が成功しているテストを多く成功している．<br>
- * 
- * @author higo
  *
+ * @author higo
  */
+@Kgp(type = StrategyType.SecondVariantSelectionStrategy, name = "TestComplement")
 public class SecondVariantTestComplementaryBasedSelection
     implements SecondVariantSelectionStrategy {
 
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  public SecondVariantTestComplementaryBasedSelection(
+      final SecondVariantSelectionStrategyContext context) {
+  }
+
+  /**
+   * コンストラクタ
+   */
+  public SecondVariantTestComplementaryBasedSelection() {
+  }
 
   /**
    * 選択を行うメソッド．<br>
    * 選択対象の個体群および1つ目の親として選択された個体をを引数として与える必要あり．<br>
    *
-   * @see jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy#exec(List, Variant)
-   * 
    * @param variants 選択対象の個体群
    * @param firstVariant 1つ目の親として選択された個体
    * @return 選択された個体
+   * @see jp.kusumotolab.kgenprog.ga.crossover.SecondVariantSelectionStrategy#exec(List, Variant)
    */
   @Override
   public Variant exec(final List<Variant> variants, final Variant firstVariant)

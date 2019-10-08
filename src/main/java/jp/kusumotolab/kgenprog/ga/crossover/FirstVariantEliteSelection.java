@@ -4,6 +4,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.FirstVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.validation.Fitness;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 
@@ -15,10 +18,19 @@ import jp.kusumotolab.kgenprog.ga.variant.Variant;
  * @author higo
  *
  */
+@Kgp(type = StrategyType.FirstVariantSelectionStrategy, name = "Elite")
 public class FirstVariantEliteSelection implements FirstVariantSelectionStrategy {
 
   private final Random random;
 
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  public FirstVariantEliteSelection(final FirstVariantSelectionStrategyContext context) {
+    this(context.getRandom());
+  }
   /**
    * コンストラクタ．選択においてランダム処理を行うためのシードを引数として渡す必要あり．
    * 

@@ -56,11 +56,9 @@ public class Configuration {
   public static final String DEFAULT_FAULT_LOCALIZE_NAME = "Ochiai";
   public static final String DEFAULT_CANDIDATE_SELECTION_NAME = "Roulette";
   public static final String DEFAULT_MUTATION_NAME = "Simple";
-  public static final Crossover.Type DEFAULT_CROSSOVER_TYPE = Crossover.Type.Random;
-  public static final FirstVariantSelectionStrategy.Strategy DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY =
-      FirstVariantSelectionStrategy.Strategy.Random;
-  public static final SecondVariantSelectionStrategy.Strategy DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY =
-      SecondVariantSelectionStrategy.Strategy.Random;
+  public static final String DEFAULT_CROSSOVER_NAME = "Random";
+  public static final String DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME = "Random";
+  public static final String DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME = "Random";
   public static final boolean DEFAULT_NEED_HISTORICAL_ELEMENT = true;
 
   private final TargetProject targetProject;
@@ -81,9 +79,9 @@ public class Configuration {
   private final String faultLocalizationName;
   private final String candidateSelectionName;
   private final String mutationName;
-  private final Crossover.Type crossoverType;
-  private final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategy;
-  private final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategy;
+  private final String crossoverName;
+  private final String firstVariantSelectionStrategyName;
+  private final String secondVariantSelectionStrategyName;
   private final boolean needHistoricalElement;
   // endregion
 
@@ -108,9 +106,9 @@ public class Configuration {
     faultLocalizationName = builder.faultLocalizationName;
     candidateSelectionName = builder.candidateSelectionName;
     mutationName = builder.mutationName;
-    crossoverType = builder.crossoverType;
-    firstVariantSelectionStrategy = builder.firstVariantSelectionStrategy;
-    secondVariantSelectionStrategy = builder.secondVariantSelectionStrategy;
+    crossoverName = builder.crossoverName;
+    firstVariantSelectionStrategyName = builder.firstVariantSelectionStrategyName;
+    secondVariantSelectionStrategyName = builder.secondVariantSelectionStrategyName;
     needHistoricalElement = builder.needHistoricalElement;
   }
 
@@ -196,16 +194,16 @@ public class Configuration {
     return mutationName;
   }
 
-  public Crossover.Type getCrossoverType() {
-    return crossoverType;
+  public String getCrossoverName() {
+    return crossoverName;
   }
 
-  public FirstVariantSelectionStrategy.Strategy getFirstVariantSelectionStrategy() {
-    return firstVariantSelectionStrategy;
+  public String getFirstVariantSelectionStrategyName() {
+    return firstVariantSelectionStrategyName;
   }
 
-  public SecondVariantSelectionStrategy.Strategy getSecondVariantSelectionStrategy() {
-    return secondVariantSelectionStrategy;
+  public String getSecondVariantSelectionStrategyName() {
+    return secondVariantSelectionStrategyName;
   }
 
   public boolean getNeedHistoricalElement() {
@@ -328,22 +326,17 @@ public class Configuration {
     @PreserveNotNull
     private String mutationName = DEFAULT_MUTATION_NAME;
 
-    @com.electronwill.nightconfig.core.conversion.Path("crossover-type")
+    @com.electronwill.nightconfig.core.conversion.Path("crossover")
     @PreserveNotNull
-    @Conversion(CrossoverTypeToString.class)
-    private Crossover.Type crossoverType = DEFAULT_CROSSOVER_TYPE;
+    private String crossoverName = DEFAULT_CROSSOVER_NAME;
 
     @com.electronwill.nightconfig.core.conversion.Path("crossover-first-variant")
     @PreserveNotNull
-    @Conversion(FirstVariantSelectionStrategyToString.class)
-    private FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategy =
-        DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY;
+    private String firstVariantSelectionStrategyName = DEFAULT_FIRST_VARIANT_SELECTION_STRATEGY_NAME;
 
     @com.electronwill.nightconfig.core.conversion.Path("crossover-second-variant")
     @PreserveNotNull
-    @Conversion(SecondVariantSelectionStrategyToString.class)
-    private SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategy =
-        DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY;
+    private String secondVariantSelectionStrategyName = DEFAULT_SECOND_VARIANT_SELECTION_STRATEGY_NAME;
 
     @Option(name = "--no-historical-element", usage = "Do not generate historical element.", hidden = true)
     @com.electronwill.nightconfig.core.conversion.Path("no-historical-element")
@@ -612,20 +605,20 @@ public class Configuration {
       return this;
     }
 
-    public Builder setCrossoverType(final Crossover.Type crossoverType) {
-      this.crossoverType = crossoverType;
+    public Builder setCrossoverType(final String crossoverName) {
+      this.crossoverName = crossoverName;
       return this;
     }
 
-    public Builder setFirstVariantSelectionStrategy
-        (final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategy) {
-      this.firstVariantSelectionStrategy = firstVariantSelectionStrategy;
+    public Builder setFirstVariantSelectionStrategy(
+        final String firstVariantSelectionStrategyName) {
+      this.firstVariantSelectionStrategyName = firstVariantSelectionStrategyName;
       return this;
     }
 
-    public Builder setSecondVariantSelectionStrategy
-        (final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategy) {
-      this.secondVariantSelectionStrategy = secondVariantSelectionStrategy;
+    public Builder setSecondVariantSelectionStrategy(
+        final String secondVariantSelectionStrategyName) {
+      this.secondVariantSelectionStrategyName = secondVariantSelectionStrategyName;
       return this;
     }
 
@@ -828,20 +821,20 @@ public class Configuration {
 
     @Option(name = "--crossover-type", usage = "Specifies crossover type.")
     private void setCrossoverTypeFromCmdLineParser
-        (final Crossover.Type crossoverType) {
-      this.crossoverType = crossoverType;
+        (final String crossoverName) {
+      this.crossoverName = crossoverName;
     }
 
     @Option(name = "--crossover-first-variant", usage = "Specifies first variant selection strategy for crossover.")
     private void setFirstVariantSelectionStrategyFromCmdLineParser
-        (final FirstVariantSelectionStrategy.Strategy firstVariantSelectionStrategy) {
-      this.firstVariantSelectionStrategy = firstVariantSelectionStrategy;
+        (final String firstVariantSelectionStrategyName) {
+      this.firstVariantSelectionStrategyName = firstVariantSelectionStrategyName;
     }
 
     @Option(name = "--crossover-second-variant", usage = "Specifies second variant selection strategy for crossover.")
     private void setSecondVariantSelectionStrategyFromCmdLineParser
-        (final SecondVariantSelectionStrategy.Strategy secondVariantSelectionStrategy) {
-      this.secondVariantSelectionStrategy = secondVariantSelectionStrategy;
+        (final String secondVariantSelectionStrategyName) {
+      this.secondVariantSelectionStrategyName = secondVariantSelectionStrategyName;
     }
 
     // endregion
@@ -947,65 +940,6 @@ public class Configuration {
 
       @Override
       public String convertFromField(final Scope.Type value) {
-        if (value == null) {
-          return null;
-        }
-        return value.toString();
-      }
-    }
-
-    private static class CrossoverTypeToString implements Converter<Crossover.Type, String> {
-
-      @Override
-      public Crossover.Type convertToField(final String value) {
-        if (value == null) {
-          return null;
-        }
-        return Crossover.Type.valueOf(value);
-      }
-
-      @Override
-      public String convertFromField(final Crossover.Type value) {
-        if (value == null) {
-          return null;
-        }
-        return value.toString();
-      }
-    }
-
-    private static class FirstVariantSelectionStrategyToString implements
-        Converter<FirstVariantSelectionStrategy.Strategy, String> {
-
-      @Override
-      public FirstVariantSelectionStrategy.Strategy convertToField(final String value) {
-        if (value == null) {
-          return null;
-        }
-        return FirstVariantSelectionStrategy.Strategy.valueOf(value);
-      }
-
-      @Override
-      public String convertFromField(final FirstVariantSelectionStrategy.Strategy value) {
-        if (value == null) {
-          return null;
-        }
-        return value.toString();
-      }
-    }
-
-    private static class SecondVariantSelectionStrategyToString implements
-        Converter<SecondVariantSelectionStrategy.Strategy, String> {
-
-      @Override
-      public SecondVariantSelectionStrategy.Strategy convertToField(final String value) {
-        if (value == null) {
-          return null;
-        }
-        return SecondVariantSelectionStrategy.Strategy.valueOf(value);
-      }
-
-      @Override
-      public String convertFromField(final SecondVariantSelectionStrategy.Strategy value) {
         if (value == null) {
           return null;
         }

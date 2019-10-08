@@ -2,6 +2,9 @@ package jp.kusumotolab.kgenprog.ga.crossover;
 
 import java.util.List;
 import java.util.Random;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.FirstVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 
 /**
@@ -10,9 +13,19 @@ import jp.kusumotolab.kgenprog.ga.variant.Variant;
  * @author higo
  *
  */
+@Kgp(type = StrategyType.FirstVariantSelectionStrategy, name = "Random")
 public class FirstVariantRandomSelection implements FirstVariantSelectionStrategy {
 
   private final Random random;
+
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  public FirstVariantRandomSelection(final FirstVariantSelectionStrategyContext context) {
+    this(context.getRandom());
+  }
 
   /**
    * コンストラクタ．選択においてランダム処理を行うためのシード値を引数として渡す必要あり．

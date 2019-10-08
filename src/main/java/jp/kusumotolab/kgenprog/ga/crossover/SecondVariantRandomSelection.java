@@ -3,6 +3,9 @@ package jp.kusumotolab.kgenprog.ga.crossover;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import jp.kusumotolab.kgenprog.Kgp;
+import jp.kusumotolab.kgenprog.StrategyType;
+import jp.kusumotolab.kgenprog.ga.Context.SecondVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 
 /**
@@ -11,9 +14,19 @@ import jp.kusumotolab.kgenprog.ga.variant.Variant;
  * @author higo
  *
  */
+@Kgp(type = StrategyType.SecondVariantSelectionStrategy, name = "Random")
 public class SecondVariantRandomSelection implements SecondVariantSelectionStrategy {
 
   private final Random random;
+
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  public SecondVariantRandomSelection(final SecondVariantSelectionStrategyContext context) {
+    this(context.getRandom());
+  }
 
   /**
    * コンストラクタ．ランダム選択を行うためのシードを引数として渡す必要あり．．

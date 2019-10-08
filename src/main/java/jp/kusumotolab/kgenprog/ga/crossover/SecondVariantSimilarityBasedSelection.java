@@ -3,6 +3,8 @@ package jp.kusumotolab.kgenprog.ga.crossover;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import io.reactivex.internal.schedulers.SchedulerPoolFactory;
+import jp.kusumotolab.kgenprog.ga.Context.SecondVariantSelectionStrategyContext;
 import jp.kusumotolab.kgenprog.ga.variant.Variant;
 
 /**
@@ -16,6 +18,15 @@ public abstract class SecondVariantSimilarityBasedSelection
     implements SecondVariantSelectionStrategy {
 
   private final Random random;
+
+  /**
+   * コンストラクタ
+   * Reflectionで呼び出されるので引数を変えないこと
+   * @param context こののコンストラクタが呼ばれる過程で生成されたオブジェクト
+   */
+  protected SecondVariantSimilarityBasedSelection(final SecondVariantSelectionStrategyContext context) {
+    this(context.getRandom());
+  }
 
   /**
    * コンストラクタ．選択においてランダム処理を行うためのシードを引数として渡す必要あり．
