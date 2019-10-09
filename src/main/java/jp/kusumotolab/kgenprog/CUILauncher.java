@@ -26,7 +26,9 @@ public class CUILauncher {
         .mutation(context -> {
           final Configuration configuration = context.getConfig();
           return new HeuristicMutation(configuration.getMutationGeneratingCount(),
-              context.getRandom(), context.getCandidateSelection(), configuration.getScope(),
+              context.getRandom(),
+              context.getCandidateSelection(),
+              configuration.getScope(),
               configuration.getNeedHistoricalElement());
         })
         .build(config);
